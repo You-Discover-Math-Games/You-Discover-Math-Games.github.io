@@ -35,7 +35,7 @@
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + card1[Math.floor(Math.random()*card1.length)] + "such that " + card2[Math.floor(Math.random()*card2.length)] + " and such that " + card3[Math.floor(Math.random()*card3.length)];
             }
             function submit() {
-                var text = $('#my_iframe').contents().find('html').html();;
+                var text = $('#canvas').contents().find('html').html();
                 console.log(text);
             }
         </script>
