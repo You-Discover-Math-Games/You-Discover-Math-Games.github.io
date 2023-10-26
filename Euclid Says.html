@@ -2,6 +2,7 @@
     <head>
         <title>Euclid Says - You Discover Math</title>
         <link rel="icon" type="image/x-icon" href="Favicon.png">
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     </head>
     <body style="margin: 0 0;">
         <center>
@@ -34,11 +35,8 @@
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + card1[Math.floor(Math.random()*card1.length)] + "such that " + card2[Math.floor(Math.random()*card2.length)] + " and such that " + card3[Math.floor(Math.random()*card3.length)];
             }
             function submit() {
-                var text = canvas.querySelectorAll(".dcg-label-raw-text");
+                var text = $('#my_iframe').contents().find('html').html();;
                 console.log(text);
-                for (var i = 0; i < text.length; i++) {
-                    console.log(text[i].innerHTML);
-                }
             }
         </script>
     </body>
