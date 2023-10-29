@@ -43,9 +43,11 @@
             function submit() {
                 var canvas = document.getElementById("canvas").contentDocument;
                 var text = canvas.querySelectorAll(".dcg-label-raw-text");
+                var str = ""
                 for (var i = 0; i < text.length; i++) {
-                    console.log(text[i].innerHTML);
+                    str += text[i].innerHTML + "<br>";
                 }
+                response.innerHTML = str;
             }
         </script>
     </body>
