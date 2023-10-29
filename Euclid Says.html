@@ -19,7 +19,7 @@
         </center>
         <script>
             var prompt = document.getElementById("Prompt");
-            var canvas = document.getElementById("canvas").contentWindow.document;
+            var canvas = document.getElementById("canvas").contentDocument;
             var response = document.getElementById("response");
             var card1 = ["one of which is acute and the other of which is right, ", "one of which is acute and the other of which is obtuse, ","one of which is right and the other of which is obtuse, ","both of which are acute, ","both of which are right, ","both of which are obtuse, "];
             var card2 = ["angle A and angle B are complementary","angle A and angle B are congruent","angle A and angle B are vertical","angle A and angle B are adjacent","angle A and angle B are not complementary","angle A and angle B are supplementary","angle A and angle B are not supplementary","angle A and angle B are congruent and complementary","angle A and angle B are congruent and supplementary","angle A and angle B are complementary and not congruent","angle A and angle B are supplementary and not congruent","angle A and angle B are vertical and complementary","angle A and angle B are vertical and supplementary","angle A and angle B are adjacent and congruent","angle A and angle B are adjacent and complementary","angle A and angle B are adjacent and supplementary","angle A and angle B are neither vertical nor adjacent"];
@@ -35,6 +35,10 @@
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + card1[Math.floor(Math.random()*card1.length)] + "such that " + card2[Math.floor(Math.random()*card2.length)] + " and such that " + card3[Math.floor(Math.random()*card3.length)];
             }
             function submit() {
+                var text = canvas.querySelectorAll(".dcg-label-raw-text");
+                for (var i = 0; i < text.length; i++) {
+                    console.log(text[i].innerHTML);
+                }
             }
         </script>
     </body>
