@@ -11,9 +11,9 @@
             <p style="margin: 0% 10%;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p><br>
             <iframe id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><br>
             <br>
-            <button onclick="roll1()">1 Card!</button>
-            <button onclick="roll2()">2 Cards!</button>
-            <button onclick="roll3()">3 Cards!</button><br><br>
+            <button class="roll" onclick="roll1()">1 Card!</button>
+            <button class="roll" onclick="roll2()">2 Cards!</button>
+            <button class="roll" onclick="roll3()">3 Cards!</button><br><br>
             <button onclick="submit()" id="submit" disabled>Submit!</button>
             <p id="response"></p>
         </center>
@@ -28,14 +28,17 @@
                 var s = card1[Math.floor(Math.random()*card1.length)];
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s.substring(0,s.length-2) + ".";
                 submit.disabled = false;
+                $(".roll").prop("disabled", true);
             }
             function roll2() {
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + card1[Math.floor(Math.random()*card1.length)] + "such that " + card2[Math.floor(Math.random()*card2.length)] + ".";
                 submit.disabled = false;
+                $(".roll").prop("disabled", true);
             }
             function roll3() {
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + card1[Math.floor(Math.random()*card1.length)] + "such that " + card2[Math.floor(Math.random()*card2.length)] + " and such that " + card3[Math.floor(Math.random()*card3.length)];
                 submit.disabled = false;
+                $(".roll").prop("disabled", true);
             }
             function submit() {
                 var canvas = document.getElementById("canvas").contentDocument;
