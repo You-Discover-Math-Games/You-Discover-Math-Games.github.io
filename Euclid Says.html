@@ -9,26 +9,20 @@
             <h1>Euclid Says</h1>
             <br>
             <p style="margin: 0% 10%;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p><br>
-            <iframe id="canvas" src="./Desmos.html" width="50%" height="50%" onload="submit()"></iframe><br>
+            <iframe id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><br>
             <br>
             <button onclick="roll1()">1 Card!</button>
             <button onclick="roll2()">2 Cards!</button>
             <button onclick="roll3()">3 Cards!</button><br><br>
-            <button id="submit" disabled="false">Submit!</button>
+            <button onclick="submit()">Submit!</button>
             <p id="response"></p>
         </center>
         <script>
-            window.onload = function() {
-                var prompt = document.getElementById("Prompt");
-                var canvas = document.getElementById("canvas").contentDocument;
-                var response = document.getElementById("response");
-                var card1 = ["one of which is acute and the other of which is right, ", "one of which is acute and the other of which is obtuse, ","one of which is right and the other of which is obtuse, ","both of which are acute, ","both of which are right, ","both of which are obtuse, "];
-                var card2 = ["angle A and angle B are complementary","angle A and angle B are congruent","angle A and angle B are vertical","angle A and angle B are adjacent","angle A and angle B are not complementary","angle A and angle B are supplementary","angle A and angle B are not supplementary","angle A and angle B are congruent and complementary","angle A and angle B are congruent and supplementary","angle A and angle B are complementary and not congruent","angle A and angle B are supplementary and not congruent","angle A and angle B are vertical and complementary","angle A and angle B are vertical and supplementary","angle A and angle B are adjacent and congruent","angle A and angle B are adjacent and complementary","angle A and angle B are adjacent and supplementary","angle A and angle B are neither vertical nor adjacent"];
-                var card3 = ["the figure contains another angle, C, which is congruent to angle A.","the figure contains another angle, C, which is not congruent to angle A.","the figure contains another angle, C, which is congruent to angle B.","the figure contains another angle, C, which is not congruent to angle B.","the figure contains another angle, C, which is supplementary to angle A.","the figure contains another angle, C, which is not supplementary to angle A.","the figure contains another angle, C, which is supplementary to angle B.","the figure contains another angle, C, which is not supplementary to angle B.","the figure contains another angle, C, which is complementary to angle A.","the figure contains another angle, C, which is not complementary to angle A.","the figure contains another angle, C, which is complementary to angle B.","the figure contains another angle, C, which is not complementary to angle B.","the figure contains another angle, C, which is vertical to angle A.","the figure contains another angle, C, which is not vertical to angle A.","the figure contains another angle, C, which is vertical to angle B.","the figure contains another angle, C, which is not vertical to angle B.","the figure contains another angle, C, which is adjacent to angle A.","the figure contains another angle, C, which is not adjacent to angle A.","the figure contains another angle, C, which is adjacent to angle B.","the figure contains another angle, C, which is not adjacent to angle B."];
-                console.log("Hello!");
-                document.getElementById("submit").disabled = false;
-                document.getElementById("submit").onclick = submit;
-            }
+            var prompt = document.getElementById("Prompt");
+            var response = document.getElementById("response");
+            var card1 = ["one of which is acute and the other of which is right, ", "one of which is acute and the other of which is obtuse, ","one of which is right and the other of which is obtuse, ","both of which are acute, ","both of which are right, ","both of which are obtuse, "];
+            var card2 = ["angle A and angle B are complementary","angle A and angle B are congruent","angle A and angle B are vertical","angle A and angle B are adjacent","angle A and angle B are not complementary","angle A and angle B are supplementary","angle A and angle B are not supplementary","angle A and angle B are congruent and complementary","angle A and angle B are congruent and supplementary","angle A and angle B are complementary and not congruent","angle A and angle B are supplementary and not congruent","angle A and angle B are vertical and complementary","angle A and angle B are vertical and supplementary","angle A and angle B are adjacent and congruent","angle A and angle B are adjacent and complementary","angle A and angle B are adjacent and supplementary","angle A and angle B are neither vertical nor adjacent"];
+            var card3 = ["the figure contains another angle, C, which is congruent to angle A.","the figure contains another angle, C, which is not congruent to angle A.","the figure contains another angle, C, which is congruent to angle B.","the figure contains another angle, C, which is not congruent to angle B.","the figure contains another angle, C, which is supplementary to angle A.","the figure contains another angle, C, which is not supplementary to angle A.","the figure contains another angle, C, which is supplementary to angle B.","the figure contains another angle, C, which is not supplementary to angle B.","the figure contains another angle, C, which is complementary to angle A.","the figure contains another angle, C, which is not complementary to angle A.","the figure contains another angle, C, which is complementary to angle B.","the figure contains another angle, C, which is not complementary to angle B.","the figure contains another angle, C, which is vertical to angle A.","the figure contains another angle, C, which is not vertical to angle A.","the figure contains another angle, C, which is vertical to angle B.","the figure contains another angle, C, which is not vertical to angle B.","the figure contains another angle, C, which is adjacent to angle A.","the figure contains another angle, C, which is not adjacent to angle A.","the figure contains another angle, C, which is adjacent to angle B.","the figure contains another angle, C, which is not adjacent to angle B."];
             function roll1() {
                 var s = card1[Math.floor(Math.random()*card1.length)];
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s.substring(0,s.length-2) + ".";
@@ -40,8 +34,8 @@
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + card1[Math.floor(Math.random()*card1.length)] + "such that " + card2[Math.floor(Math.random()*card2.length)] + " and such that " + card3[Math.floor(Math.random()*card3.length)];
             }
             function submit() {
+                var canvas = document.getElementById("canvas").contentDocument;
                 var text = canvas.querySelectorAll(".dcg-label-raw-text");
-                console.log("Hello!");
                 for (var i = 0; i < text.length; i++) {
                     console.log(text[i].innerHTML);
                 }
