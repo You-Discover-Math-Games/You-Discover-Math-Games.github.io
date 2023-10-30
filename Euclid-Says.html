@@ -25,31 +25,59 @@
             var card1 = ["one of which is acute and the other of which is right, ", "one of which is acute and the other of which is obtuse, ","one of which is right and the other of which is obtuse, ","both of which are acute, ","both of which are right, ","both of which are obtuse, "];
             var card2 = ["angle A and angle B are complementary","angle A and angle B are congruent","angle A and angle B are vertical","angle A and angle B are adjacent","angle A and angle B are not complementary","angle A and angle B are supplementary","angle A and angle B are not supplementary","angle A and angle B are congruent and complementary","angle A and angle B are congruent and supplementary","angle A and angle B are complementary and not congruent","angle A and angle B are supplementary and not congruent","angle A and angle B are vertical and complementary","angle A and angle B are vertical and supplementary","angle A and angle B are adjacent and congruent","angle A and angle B are adjacent and complementary","angle A and angle B are adjacent and supplementary","angle A and angle B are neither vertical nor adjacent"];
             var card3 = ["the figure contains another angle, C, which is congruent to angle A.","the figure contains another angle, C, which is not congruent to angle A.","the figure contains another angle, C, which is congruent to angle B.","the figure contains another angle, C, which is not congruent to angle B.","the figure contains another angle, C, which is supplementary to angle A.","the figure contains another angle, C, which is not supplementary to angle A.","the figure contains another angle, C, which is supplementary to angle B.","the figure contains another angle, C, which is not supplementary to angle B.","the figure contains another angle, C, which is complementary to angle A.","the figure contains another angle, C, which is not complementary to angle A.","the figure contains another angle, C, which is complementary to angle B.","the figure contains another angle, C, which is not complementary to angle B.","the figure contains another angle, C, which is vertical to angle A.","the figure contains another angle, C, which is not vertical to angle A.","the figure contains another angle, C, which is vertical to angle B.","the figure contains another angle, C, which is not vertical to angle B.","the figure contains another angle, C, which is adjacent to angle A.","the figure contains another angle, C, which is not adjacent to angle A.","the figure contains another angle, C, which is adjacent to angle B.","the figure contains another angle, C, which is not adjacent to angle B."];
+            var cards = ["", "", ""];
+            var dict = ["both", "acute", "right", "obtuse"];
             function roll1() {
-                var s = card1[Math.floor(Math.random()*card1.length)];
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s.substring(0,s.length-2) + ".";
+                var s1 = card1[Math.floor(Math.random()*card1.length)];
+                cards[0] = s1;
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
                 sub.disabled = false;
                 $(".roll").prop("disabled", true);
             }
             function roll2() {
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + card1[Math.floor(Math.random()*card1.length)] + "such that " + card2[Math.floor(Math.random()*card2.length)] + ".";
+                var s1 = card1[Math.floor(Math.random()*card1.length)];
+                var s2 = card2[Math.floor(Math.random()*card2.length)];
+                cards[0] = s1;
+                cards[1] = s2;
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
                 sub.disabled = false;
                 $(".roll").prop("disabled", true);
             }
             function roll3() {
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + card1[Math.floor(Math.random()*card1.length)] + "such that " + card2[Math.floor(Math.random()*card2.length)] + " and such that " + card3[Math.floor(Math.random()*card3.length)];
+                var s1 = card1[Math.floor(Math.random()*card1.length)];
+                var s2 = card2[Math.floor(Math.random()*card2.length)];
+                var s3 = card3[Math.floor(Math.random()*card3.length)];
+                cards[0] = s1;
+                cards[1] = s2;
+                cards[2] = s3;
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + "such that " + s2 + " and such that " + s3;
                 sub.disabled = false;
                 $(".roll").prop("disabled", true);
             }
             function submit() {
                 var canvas = document.getElementById("canvas").contentDocument;
                 var text = canvas.querySelectorAll(".dcg-label-raw-text");
-                var str = ""
+                var labels = []
                 for (var i = 0; i < text.length; i++) {
-                    str += text[i].innerHTML + "<br>";
+                    labels.push(text[i].innerHTML);
                 }
-                response.innerHTML = str;
-                $(".row").prop("disabled", false);
+                var points = [];
+                var angles = [];
+                for (var j = 0; j < labels.length; j++) {
+                    if (labels[j].indexOf("°") == -1) {
+                        points.push(labels[j]);
+                        continue;
+                    }
+                    angles.push(labels[j])
+                }
+                for (var k = 0; k < dict.length; k++) {
+                    if (cards[0].indexOf(dict[j])) {
+                        
+                    }
+                }
+                response.innerHTML  = angles + "<br>" + points;
+                cards = ["", "", ""];
+                $(".roll").prop("disabled", false);
                 sub.disabled = true;
             }
         </script>
