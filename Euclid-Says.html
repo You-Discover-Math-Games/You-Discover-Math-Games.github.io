@@ -28,6 +28,7 @@
             var cards = ["", "", ""];
             var dict = ["both", "acute", "right", "obtuse"];
             function roll1() {
+                response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 cards[0] = s1;
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
@@ -35,6 +36,7 @@
                 $(".roll").prop("disabled", true);
             }
             function roll2() {
+                response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 var s2 = card2[Math.floor(Math.random()*card2.length)];
                 cards[0] = s1;
@@ -44,6 +46,7 @@
                 $(".roll").prop("disabled", true);
             }
             function roll3() {
+                response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 var s2 = card2[Math.floor(Math.random()*card2.length)];
                 var s3 = card3[Math.floor(Math.random()*card3.length)];
@@ -151,7 +154,12 @@
                         }
                     }
                 }
-                response.innerHTML  = (success == "AB");
+                if (success = "AB") {
+                    response.innerHTML = "Great job!";
+                }
+                else {
+                    response.innerHTML = "Oops! That's not correct. Try another one!";
+                }
                 cards = ["", "", ""];
                 $(".roll").prop("disabled", false);
                 sub.disabled = true;
