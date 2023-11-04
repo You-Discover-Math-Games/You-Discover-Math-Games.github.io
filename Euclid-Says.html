@@ -70,12 +70,88 @@
                     }
                     angles.push(labels[j])
                 }
+                var both = false;
+                var success = "";
                 for (var k = 0; k < dict.length; k++) {
-                    if (cards[0].indexOf(dict[j])) {
-                        
+                    if (cards[0].indexOf(dict[j]) != -1) {
+                        if (j == 0) {
+                            both = true;
+                        }
+                        if (j == 1) {
+                            if (both) {
+                                if (parseInt(angles[points.indexOf("A")]) < 90 && parseInt(angles[points.indexOf("B")]) < 90) {
+                                    success = "AB";
+                                    break;
+                                }
+                            } 
+                            else {
+                                if (success == "") {
+                                    if (parseInt(angles[points.indexOf("A")]) < 90) {
+                                        success == "B";
+                                    }
+                                    else if (parseInt(angles[points.indexOf("B")]) < 90) {
+                                        success = "A";
+                                    }
+                                }
+                                else {
+                                    if (parseInt(angles[points.indexOf(success)]) < 90) {
+                                        success == "AB";
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else if (j == 2) {
+                            if (both) {
+                                if (parseInt(angles[points.indexOf("A")]) == 90 && parseInt(angles[points.indexOf("B")]) == 90) {
+                                    success = "AB";
+                                    break;
+                                }
+                            } 
+                            else {
+                                if (success == "") {
+                                    if (parseInt(angles[points.indexOf("A")]) == 90) {
+                                        success == "B";
+                                    }
+                                    else if (parseInt(angles[points.indexOf("B")]) == 90) {
+                                        success = "A";
+                                    }
+                                }
+                                else {
+                                    if (parseInt(angles[points.indexOf(success)]) == 90) {
+                                        success == "AB";
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else if (j == 3) {
+                            if (both) {
+                                if (parseInt(angles[points.indexOf("A")]) > 90 && parseInt(angles[points.indexOf("B")]) > 90) {
+                                    success = "AB";
+                                    break;
+                                }
+                            } 
+                            else {
+                                if (success == "") {
+                                    if (parseInt(angles[points.indexOf("A")]) > 90) {
+                                        success == "B";
+                                    }
+                                    else if (parseInt(angles[points.indexOf("B")]) > 90) {
+                                        success = "A";
+                                    }
+                                }
+                                else {
+                                    if (parseInt(angles[points.indexOf(success)]) > 90) {
+                                        success == "AB";
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                response.innerHTML  = angles + "<br>" + points;
+                response.innerHTML  = (success == "AB");
                 cards = ["", "", ""];
                 $(".roll").prop("disabled", false);
                 sub.disabled = true;
