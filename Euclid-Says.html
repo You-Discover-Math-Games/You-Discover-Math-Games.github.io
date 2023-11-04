@@ -73,76 +73,76 @@
                 var both = false;
                 var success = "";
                 for (var k = 0; k < dict.length; k++) {
-                    if (cards[0].indexOf(dict[j]) != -1) {
-                        if (j == 0) {
+                    if (cards[0].indexOf(dict[k]) != -1) {
+                        if (k == 0) {
                             both = true;
                         }
-                        if (j == 1) {
+                        if (k == 1) {
                             if (both) {
-                                if (parseInt(angles[points.indexOf("A")]) < 90 && parseInt(angles[points.indexOf("B")]) < 90) {
+                                if (parseFloat(angles[points.indexOf("A")]) < 90 && parseFloat(angles[points.indexOf("B")]) < 90) {
                                     success = "AB";
                                     break;
                                 }
                             } 
                             else {
                                 if (success == "") {
-                                    if (parseInt(angles[points.indexOf("A")]) < 90) {
+                                    if (parseFloat(angles[points.indexOf("A")]) < 90) {
                                         success == "B";
                                     }
-                                    else if (parseInt(angles[points.indexOf("B")]) < 90) {
+                                    else if (parseFloat(angles[points.indexOf("B")]) < 90) {
                                         success = "A";
                                     }
                                 }
                                 else {
-                                    if (parseInt(angles[points.indexOf(success)]) < 90) {
+                                    if (parseFloat(angles[points.indexOf(success)]) < 90) {
                                         success == "AB";
                                         break;
                                     }
                                 }
                             }
                         }
-                        else if (j == 2) {
+                        else if (k == 2) {
                             if (both) {
-                                if (parseInt(angles[points.indexOf("A")]) == 90 && parseInt(angles[points.indexOf("B")]) == 90) {
+                                if (parseFloat(angles[points.indexOf("A")]) == 90 && parseFloat(angles[points.indexOf("B")]) == 90) {
                                     success = "AB";
                                     break;
                                 }
                             } 
                             else {
                                 if (success == "") {
-                                    if (parseInt(angles[points.indexOf("A")]) == 90) {
+                                    if (parseFloat(angles[points.indexOf("A")]) == 90) {
                                         success == "B";
                                     }
-                                    else if (parseInt(angles[points.indexOf("B")]) == 90) {
+                                    else if (parseFloat(angles[points.indexOf("B")]) == 90) {
                                         success = "A";
                                     }
                                 }
                                 else {
-                                    if (parseInt(angles[points.indexOf(success)]) == 90) {
+                                    if (parseFloat(angles[points.indexOf(success)]) == 90) {
                                         success == "AB";
                                         break;
                                     }
                                 }
                             }
                         }
-                        else if (j == 3) {
+                        else if (k == 3) {
                             if (both) {
-                                if (parseInt(angles[points.indexOf("A")]) > 90 && parseInt(angles[points.indexOf("B")]) > 90) {
+                                if (parseFloat(angles[points.indexOf("A")]) > 90 && parseFloat(angles[points.indexOf("B")]) > 90) {
                                     success = "AB";
                                     break;
                                 }
                             } 
                             else {
                                 if (success == "") {
-                                    if (parseInt(angles[points.indexOf("A")]) > 90) {
+                                    if (parseFloat(angles[points.indexOf("A")]) > 90) {
                                         success == "B";
                                     }
-                                    else if (parseInt(angles[points.indexOf("B")]) > 90) {
+                                    else if (parseFloat(angles[points.indexOf("B")]) > 90) {
                                         success = "A";
                                     }
                                 }
                                 else {
-                                    if (parseInt(angles[points.indexOf(success)]) > 90) {
+                                    if (parseFloat(angles[points.indexOf(success)]) > 90) {
                                         success == "AB";
                                         break;
                                     }
@@ -150,7 +150,7 @@
                             }
                         }
                     }
-                    console.log(both + "\n" + success)
+                    console.log(both + "\n" + success);
                 }
                 response.innerHTML  = (success == "AB");
                 cards = ["", "", ""];
