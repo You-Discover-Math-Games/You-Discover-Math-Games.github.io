@@ -30,7 +30,6 @@
             function roll1() {
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 cards[0] = s1;
-                cards[0] = "one of which is acute and the other of which is obtuse, ";
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
                 sub.disabled = false;
                 $(".roll").prop("disabled", true);
