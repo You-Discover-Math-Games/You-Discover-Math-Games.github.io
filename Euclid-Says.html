@@ -72,7 +72,6 @@
                 }
                 var both = false;
                 var success = "";
-                console.log(cards[0]);
                 for (var k = 0; k < dict.length; k++) {
                     if (cards[0].indexOf(dict[k]) != -1) {
                         if (k == 0) {
@@ -151,7 +150,6 @@
                             }
                         }
                     }
-                    console.log(both + "\n" + success);
                 }
                 response.innerHTML  = (success == "AB");
                 cards = ["", "", ""];
