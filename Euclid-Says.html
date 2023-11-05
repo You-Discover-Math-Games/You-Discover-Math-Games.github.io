@@ -10,12 +10,12 @@
             <h1>Euclid Says</h1>
             <br>
             <p style="margin: 0% 10%;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p><br>
-            <iframe id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><br>
+            <iframe style="border: 2px black solid;" id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><br>
             <br>
             <button class="roll" onclick="roll1()">1 Card!</button>
             <button class="roll" onclick="roll2()">2 Cards!</button>
             <button class="roll" onclick="roll3()">3 Cards!</button><br><br>
-            <input type="checkbox" onclick="impossible">
+            <input id="cb" type="checkbox" onclick="impossible()">
             <label>Impossible</label>
             <p>Enter your reasoning:</p>
             <textarea style="width: 50%; height: 10%;"></textarea><br>
@@ -33,6 +33,16 @@
             var cards = ["", "", ""];
             var dict1 = ["both", "acute", "right", "obtuse"];
             var dict2 = ["and", "complementary", "congruent", "vertical", "adjacent", "supplementary"];
+            function impossible() {
+                var iframe = document.getElementById("canvas");
+                var checkbox = document.getElementById("cb");
+                if (cb.checked) {
+                    iframe.style.filter = "brightness(50%)";
+                }
+                else {
+                    iframe.style.filter = "brightness(100%)";
+                }
+            }
             function roll1() {
                 response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
