@@ -26,7 +26,8 @@
             var card2 = ["angle A and angle B are complementary","angle A and angle B are congruent","angle A and angle B are vertical","angle A and angle B are adjacent","angle A and angle B are not complementary","angle A and angle B are supplementary","angle A and angle B are not supplementary","angle A and angle B are congruent and complementary","angle A and angle B are congruent and supplementary","angle A and angle B are complementary and not congruent","angle A and angle B are supplementary and not congruent","angle A and angle B are vertical and complementary","angle A and angle B are vertical and supplementary","angle A and angle B are adjacent and congruent","angle A and angle B are adjacent and complementary","angle A and angle B are adjacent and supplementary","angle A and angle B are neither vertical nor adjacent"];
             var card3 = ["the figure contains another angle, C, which is congruent to angle A.","the figure contains another angle, C, which is not congruent to angle A.","the figure contains another angle, C, which is congruent to angle B.","the figure contains another angle, C, which is not congruent to angle B.","the figure contains another angle, C, which is supplementary to angle A.","the figure contains another angle, C, which is not supplementary to angle A.","the figure contains another angle, C, which is supplementary to angle B.","the figure contains another angle, C, which is not supplementary to angle B.","the figure contains another angle, C, which is complementary to angle A.","the figure contains another angle, C, which is not complementary to angle A.","the figure contains another angle, C, which is complementary to angle B.","the figure contains another angle, C, which is not complementary to angle B.","the figure contains another angle, C, which is vertical to angle A.","the figure contains another angle, C, which is not vertical to angle A.","the figure contains another angle, C, which is vertical to angle B.","the figure contains another angle, C, which is not vertical to angle B.","the figure contains another angle, C, which is adjacent to angle A.","the figure contains another angle, C, which is not adjacent to angle A.","the figure contains another angle, C, which is adjacent to angle B.","the figure contains another angle, C, which is not adjacent to angle B."];
             var cards = ["", "", ""];
-            var dict = ["both", "acute", "right", "obtuse"];
+            var dict1 = ["both", "acute", "right", "obtuse"];
+            var dict2 = ["and", "complementary", "congruent", "vertical", "adjacent", "supplementary"];
             function roll1() {
                 response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
@@ -74,31 +75,32 @@
                     angles.push(labels[j])
                 }
                 var both = false;
-                var success = "";
-                for (var k = 0; k < dict.length; k++) {
-                    if (cards[0].indexOf(dict[k]) != -1) {
+                var success1 = "";
+                var overall_success = false;
+                for (var k = 0; k < dict1.length; k++) {
+                    if (cards[0].indexOf(dict1[k]) != -1) {
                         if (k == 0) {
                             both = true;
                         }
                         else if (k == 1) {
                             if (both) {
                                 if (parseFloat(angles[points.indexOf("A")]) < 90 && parseFloat(angles[points.indexOf("B")]) < 90) {
-                                    success = "AB";
+                                    success1 = "AB";
                                     break;
                                 }
                             } 
                             else {
-                                if (success == "") {
+                                if (success1 == "") {
                                     if (parseFloat(angles[points.indexOf("A")]) < 90) {
-                                        success = "B";
+                                        success1 = "B";
                                     }
                                     else if (parseFloat(angles[points.indexOf("B")]) < 90) {
-                                        success = "A";
+                                        success1 = "A";
                                     }
                                 }
                                 else {
-                                    if (parseFloat(angles[points.indexOf(success)]) < 90) {
-                                        success = "AB";
+                                    if (parseFloat(angles[points.indexOf(success1)]) < 90) {
+                                        success1 = "AB";
                                         break;
                                     }
                                 }
@@ -107,22 +109,22 @@
                         else if (k == 2) {
                             if (both) {
                                 if (parseFloat(angles[points.indexOf("A")]) == 90 && parseFloat(angles[points.indexOf("B")]) == 90) {
-                                    success = "AB";
+                                    success1 = "AB";
                                     break;
                                 }
                             } 
                             else {
-                                if (success == "") {
+                                if (success1 == "") {
                                     if (parseFloat(angles[points.indexOf("A")]) == 90) {
-                                        success = "B";
+                                        success1 = "B";
                                     }
                                     else if (parseFloat(angles[points.indexOf("B")]) == 90) {
-                                        success = "A";
+                                        success1 = "A";
                                     }
                                 }
                                 else {
-                                    if (parseFloat(angles[points.indexOf(success)]) == 90) {
-                                        success = "AB";
+                                    if (parseFloat(angles[points.indexOf(success1)]) == 90) {
+                                        success1 = "AB";
                                         break;
                                     }
                                 }
@@ -131,22 +133,22 @@
                         else if (k == 3) {
                             if (both) {
                                 if (parseFloat(angles[points.indexOf("A")]) > 90 && parseFloat(angles[points.indexOf("B")]) > 90) {
-                                    success = "AB";
+                                    success1 = "AB";
                                     break;
                                 }
                             } 
                             else {
-                                if (success == "") {
+                                if (success1 == "") {
                                     if (parseFloat(angles[points.indexOf("A")]) > 90) {
-                                        success = "B";
+                                        success1 = "B";
                                     }
                                     else if (parseFloat(angles[points.indexOf("B")]) > 90) {
-                                        success = "A";
+                                        success1 = "A";
                                     }
                                 }
                                 else {
-                                    if (parseFloat(angles[points.indexOf(success)]) > 90) {
-                                        success = "AB";
+                                    if (parseFloat(angles[points.indexOf(success1)]) > 90) {
+                                        success1 = "AB";
                                         break;
                                     }
                                 }
@@ -154,7 +156,115 @@
                         }
                     }
                 }
-                if (success == "AB") {
+                if (success1 == "AB") {
+                    overall_success = true;
+                }
+                if (cards[1] != "" && overall_success) {
+                    overall_success = false;
+                    var success2 = true;
+                    var and = [];
+                    and_value = -1;
+                    var and_condition = true;
+                    for (var k = 0; k < dict2.length; k++) {
+                        if (cards[1].indexOf(dict2[k], 15) != -1) {
+                            if (k == 0) {
+                                var conditions = [cards[1].substring(24, cards[1].indexOf(" and", 15)), cards[1].substring(cards[1].indexOf("and", 15) + 4)];
+                                for (var i = 0; i < 2; i++) {
+                                    if (conditions[i].indexOf("not") != -1) {
+                                        and.push([dict2.indexOf(conditions[i].substring(4)), false]);
+                                        continue;
+                                    }
+                                    and.push([dict2.indexOf(conditions[i]), true]);
+                                }
+                                and_value = 0;
+                            }
+                            if (k == 1 || (and_value >= 0 && and[and_value][0] == 1)) {
+                                if (and_value < 0) {
+                                    if (cards[0].indexOf("not " + dict2[k]) != -1) {
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 90);
+                                    }
+                                    else {
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 90);
+                                    }
+                                    break;
+                                }
+                                else {
+                                    and_condition = and_condition && ((parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 90) == and[and_value][1]);
+                                    and_value += 1;
+                                    if (and_value == 2) {
+                                        success = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (k == 2 || (and_value >= 0 && and[and_value][0] == 2)) {
+                                if (and_value < 0) {
+                                    if (cards[0].indexOf("not " + dict2[k]) != -1) {
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) != parseFloat(angles[points.indexOf("A")]));
+                                    }
+                                    else {
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) == parseFloat(angles[points.indexOf("A")]));
+                                    }
+                                    break;
+                                }
+                                else {
+                                    and_condition = and_condition && ((parseFloat(angles[points.indexOf("A")]) == parseFloat(angles[points.indexOf("A")])) == and[and_value][1]);
+                                    and_value += 1;
+                                    if (and_value == 2) {
+                                        success = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (k == 4 || (and_value >= 0 && and[and_value][0] == 4)) {
+                                if (and_value < 0) {
+                                    if (cards[0].indexOf("not " + dict2[k]) != -1) {
+                                        success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) != 1);
+                                    }
+                                    else {
+                                        success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) == 1);
+                                    }
+                                    break;
+                                }
+                                else {
+                                    and_condition = and_condition && ((Math.abs(points.indexOf("A") - points.indexOf("B")) == 1) == and[and_value][1]);
+                                    and_value += 1;
+                                    if (and_value == 2) {
+                                        success = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (k == 5 || (and_value >= 0 && and[and_value][0] == 5)) {
+                                if (and_value < 0) {
+                                    if (cards[0].indexOf("not " + dict2[k]) != -1) {
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 180);
+                                    }
+                                    else {
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 180);
+                                    }
+                                    break;
+                                }
+                                else {
+                                    and_condition = and_condition && ((parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 180) == and[and_value][1]);
+                                    and_value += 1;
+                                    if (and_value == 2) {
+                                        success = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (success2) {
+                        overall_success = true;
+                    }
+                    if (cards[2] != "" && overall_success) {
+                        overall_success = false;
+                        var success3 = "";
+                    }
+                }
+                if (overall_success) {
                     response.innerHTML = "Great job!";
                 }
                 else {
