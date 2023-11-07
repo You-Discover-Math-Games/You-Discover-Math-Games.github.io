@@ -57,6 +57,9 @@
                 var s2 = card2[Math.floor(Math.random()*card2.length)];
                 cards[0] = s1;
                 cards[1] = s2;
+                if (s2.indexOf("nor") != -1) {
+                    cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
+                }
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
                 sub.disabled = false;
                 $(".roll").prop("disabled", true);
@@ -68,6 +71,9 @@
                 var s3 = card3[Math.floor(Math.random()*card3.length)];
                 cards[0] = s1;
                 cards[1] = s2;
+                if (s2.indexOf("nor") != -1) {
+                    cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
+                }
                 cards[2] = s3;
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + "such that " + s2 + " and such that " + s3;
                 sub.disabled = false;
@@ -183,13 +189,20 @@
                     for (var k = 0; k < dict2.length; k++) {
                         if (cards[1].indexOf(dict2[k], 15) != -1) {
                             if (k == 0) {
-                                var conditions = [cards[1].substring(24, cards[1].indexOf(" and", 15)), cards[1].substring(cards[1].indexOf("and", 15) + 4)];
-                                for (var i = 0; i < 2; i++) {
-                                    if (conditions[i].indexOf("not") != -1) {
-                                        and.push([dict2.indexOf(conditions[i].substring(4)), false]);
-                                        continue;
+                                if (cards[1][cards[1].indexOf("and") - 1] != "n") {
+                                    var conditions = [cards[1].substring(24, cards[1].indexOf("and", 15)), cards[1].substring(cards[1].indexOf("and", 15) + 4)];
+                                    for (var i = 0; i < 2; i++) {
+                                        if (conditions[i].indexOf("not") != -1) {
+                                            and.push([dict2.indexOf(conditions[i].substring(4)), false]);
+                                            continue;
+                                        }
+                                        and.push([dict2.indexOf(conditions[i]), true]);
                                     }
-                                    and.push([dict2.indexOf(conditions[i]), true]);
+                                }
+                                else {
+                                    var conditions = [cards[1].substring(31, cards[1].indexOf("and", 15)-2), cards[1].substring(cards[1].indexOf("and", 15) + 4)];
+                                    and.push([dict2.indexOf(conditions[0]), false]);
+                                    and.push([dict2.indexOf(conditions[1]), false]);
                                 }
                                 and_value = 0;
                             }
@@ -253,7 +266,7 @@
                             if (k == 5 || (and_value >= 0 && and[and_value][0] == 5)) {
                                 if (and_value < 0) {
                                     if (cards[0].indexOf("not " + dict2[k]) != -1) {
-                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 180);
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) != 180);
                                     }
                                     else {
                                         success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 180);
