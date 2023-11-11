@@ -16,7 +16,7 @@
             <button class="roll" onclick="roll2()">2 Cards!</button>
             <button class="roll" onclick="roll3()">3 Cards!</button><br><br>
             <input id="cb" type="checkbox" onclick="impossible()">
-            <label>Impossible</label>
+            <label onclick="impossible()">Impossible</label>
             <p>Enter your reasoning:</p>
             <textarea style="width: 50%; height: 10%;"></textarea><br>
             <br>
@@ -214,7 +214,7 @@
                             }
                             if (k == 1 || (and_value >= 0 && and[and_value][0] == 1)) {
                                 if (and_value < 0) {
-                                    if (cards[0].indexOf("not " + dict2[k]) != -1) {
+                                    if (cards[1].indexOf("not " + dict2[k]) != -1) {
                                         success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 90);
                                     }
                                     else {
@@ -233,7 +233,7 @@
                             }
                             if (k == 2 || (and_value >= 0 && and[and_value][0] == 2)) {
                                 if (and_value < 0) {
-                                    if (cards[0].indexOf("not " + dict2[k]) != -1) {
+                                    if (cards[1].indexOf("not " + dict2[k]) != -1) {
                                         success2 = (parseFloat(angles[points.indexOf("A")]) != parseFloat(angles[points.indexOf("A")]));
                                     }
                                     else {
@@ -252,7 +252,7 @@
                             }
                             if (k == 4 || (and_value >= 0 && and[and_value][0] == 4)) {
                                 if (and_value < 0) {
-                                    if (cards[0].indexOf("not " + dict2[k]) != -1) {
+                                    if (cards[1].indexOf("not " + dict2[k]) != -1) {
                                         success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) != 1);
                                     }
                                     else {
@@ -271,7 +271,7 @@
                             }
                             if (k == 5 || (and_value >= 0 && and[and_value][0] == 5)) {
                                 if (and_value < 0) {
-                                    if (cards[0].indexOf("not " + dict2[k]) != -1) {
+                                    if (cards[1].indexOf("not " + dict2[k]) != -1) {
                                         success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) != 180);
                                     }
                                     else {
