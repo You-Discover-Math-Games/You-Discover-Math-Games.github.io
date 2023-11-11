@@ -33,9 +33,9 @@
             var cards = ["", "", ""];
             var dict1 = ["both", "acute", "right", "obtuse"];
             var dict2 = ["and", "complementary", "congruent", "vertical", "adjacent", "supplementary"];
+            var checkbox = document.getElementById("cb");
             function impossible() {
                 var iframe = document.getElementById("canvas");
-                var checkbox = document.getElementById("cb");
                 if (checkbox.checked) {
                     iframe.style.filter = "brightness(50%)";
                 }
@@ -45,7 +45,6 @@
             }
             function roll1() {
                 response.innerHTML = "";
-                var checkbox = document.getElementById("cb");
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 cards[0] = s1;
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
