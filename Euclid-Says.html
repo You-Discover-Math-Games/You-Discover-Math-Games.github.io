@@ -36,7 +36,7 @@
             function impossible() {
                 var iframe = document.getElementById("canvas");
                 var checkbox = document.getElementById("cb");
-                if (cb.checked) {
+                if (checkbox.checked) {
                     iframe.style.filter = "brightness(50%)";
                 }
                 else {
@@ -45,10 +45,13 @@
             }
             function roll1() {
                 response.innerHTML = "";
+                var checkbox = document.getElementById("cb");
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 cards[0] = s1;
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
                 sub.disabled = false;
+                checkbox.checked = false;
+                impossible();
                 $(".roll").prop("disabled", true);
             }
             function roll2() {
@@ -62,6 +65,8 @@
                 }
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
                 sub.disabled = false;
+                checkbox.checked = false;
+                impossible();
                 $(".roll").prop("disabled", true);
             }
             function roll3() {
@@ -77,6 +82,8 @@
                 cards[2] = s3;
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + "such that " + s2 + " and such that " + s3;
                 sub.disabled = false;
+                checkbox.checked = false;
+                impossible();
                 $(".roll").prop("disabled", true);
             }
             function submit() {
@@ -190,7 +197,7 @@
                         if (cards[1].indexOf(dict2[k], 15) != -1) {
                             if (k == 0) {
                                 if (cards[1][cards[1].indexOf("and") - 1] != "n") {
-                                    var conditions = [cards[1].substring(24, cards[1].indexOf("and", 15)), cards[1].substring(cards[1].indexOf("and", 15) + 4)];
+                                    var conditions = [cards[1].substring(24, cards[1].indexOf("and", 15)-1), cards[1].substring(cards[1].indexOf("and", 15) + 4)];
                                     for (var i = 0; i < 2; i++) {
                                         if (conditions[i].indexOf("not") != -1) {
                                             and.push([dict2.indexOf(conditions[i].substring(4)), false]);
