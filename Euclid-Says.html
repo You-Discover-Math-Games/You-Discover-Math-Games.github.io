@@ -61,7 +61,7 @@
                     iframe.style.filter = "brightness(100%)";
                 }
             }
-            function check(angles, labels) {
+            function check(angles, points) {
                 var both = false;
                 var success1 = "";
                 var overall_success = false;
@@ -324,7 +324,7 @@
                     angles.push(labels[j])
                 }
                 
-                if (check(angles, labels)) {
+                if (check(angles, points)) {
                     response.innerHTML = "Great job!";
                 }
                 else {
