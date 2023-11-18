@@ -9,7 +9,8 @@
             <br>
             <h1>Euclid Says</h1>
             <br>
-            <p style="margin: 0% 10%;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p><br>
+            <span>Assign:</span><input id="assign" type="number" min="0"><br><button onclick="assign()">Assign!</button>
+            <p style="margin: 0% 10%; font-size: 20px;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p><br>
             <iframe style="border: 2px black solid;" id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><br>
             <br>
             <button class="roll" onclick="roll1()">1 Card!</button>
@@ -18,7 +19,7 @@
             <input id="cb" type="checkbox" onclick="impossible()">
             <label onclick="impossible()">Impossible</label>
             <p>Enter your reasoning:</p>
-            <textarea style="width: 50%; height: 10%;"></textarea><br>
+            <textarea style="width: 50%; height: 7%; font-family: 'Times New Roman';"></textarea><br>
             <br>
             <button onclick="submit()" id="sub" disabled>Submit!</button>
             <p id="response"></p>
@@ -34,6 +35,20 @@
             var dict1 = ["both", "acute", "right", "obtuse"];
             var dict2 = ["and", "complementary", "congruent", "vertical", "adjacent", "supplementary"];
             var checkbox = document.getElementById("cb");
+            var number = document.getElementById("assign");
+            var problemId = 0;
+            function assign() {
+                problemID = number.value;
+                if (problemID < card1.length) {
+                    var s1 = card1[problemId];
+                    cards[0] = s1;
+                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
+                    sub.disabled = false;
+                    checkbox.checked = false;
+                    impossible();
+                    $(".roll").prop("disabled", true);
+                }
+            }
             function impossible() {
                 var iframe = document.getElementById("canvas");
                 if (checkbox.checked) {
@@ -43,64 +58,7 @@
                     iframe.style.filter = "brightness(100%)";
                 }
             }
-            function roll1() {
-                response.innerHTML = "";
-                var s1 = card1[Math.floor(Math.random()*card1.length)];
-                cards[0] = s1;
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
-                sub.disabled = false;
-                checkbox.checked = false;
-                impossible();
-                $(".roll").prop("disabled", true);
-            }
-            function roll2() {
-                response.innerHTML = "";
-                var s1 = card1[Math.floor(Math.random()*card1.length)];
-                var s2 = card2[Math.floor(Math.random()*card2.length)];
-                cards[0] = s1;
-                cards[1] = s2;
-                if (s2.indexOf("nor") != -1) {
-                    cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
-                }
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
-                sub.disabled = false;
-                checkbox.checked = false;
-                impossible();
-                $(".roll").prop("disabled", true);
-            }
-            function roll3() {
-                response.innerHTML = "";
-                var s1 = card1[Math.floor(Math.random()*card1.length)];
-                var s2 = card2[Math.floor(Math.random()*card2.length)];
-                var s3 = card3[Math.floor(Math.random()*card3.length)];
-                cards[0] = s1;
-                cards[1] = s2;
-                if (s2.indexOf("nor") != -1) {
-                    cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
-                }
-                cards[2] = s3;
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + "such that " + s2 + " and such that " + s3;
-                sub.disabled = false;
-                checkbox.checked = false;
-                impossible();
-                $(".roll").prop("disabled", true);
-            }
-            function submit() {
-                var canvas = document.getElementById("canvas").contentDocument;
-                var text = canvas.querySelectorAll(".dcg-label-raw-text");
-                var labels = []
-                for (var i = 0; i < text.length; i++) {
-                    labels.push(text[i].innerHTML);
-                }
-                var points = [];
-                var angles = [];
-                for (var j = 0; j < labels.length; j++) {
-                    if (labels[j].indexOf("°") == -1) {
-                        points.push(labels[j]);
-                        continue;
-                    }
-                    angles.push(labels[j])
-                }
+            function check(angles, labels) {
                 var both = false;
                 var success1 = "";
                 var overall_success = false;
@@ -298,7 +256,71 @@
                         var success3 = "";
                     }
                 }
-                if (overall_success) {
+                return overall_success;
+            }
+            function roll1() {
+                response.innerHTML = "";
+                var s1 = card1[Math.floor(Math.random()*card1.length)];
+                num = card1.indexOf(s1);
+                cards[0] = s1;
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
+                sub.disabled = false;
+                checkbox.checked = false;
+                impossible();
+                $(".roll").prop("disabled", true);
+            }
+            function roll2() {
+                response.innerHTML = "";
+                var s1 = card1[Math.floor(Math.random()*card1.length)];
+                var s2 = card2[Math.floor(Math.random()*card2.length)];
+                cards[0] = s1;
+                cards[1] = s2;
+                num = card1.length + card1.indexOf(s1)*card2.length + card2.indexOf(s2);
+                if (s2.indexOf("nor") != -1) {
+                    cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
+                }
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
+                sub.disabled = false;
+                checkbox.checked = false;
+                impossible();
+                $(".roll").prop("disabled", true);
+            }
+            function roll3() {
+                response.innerHTML = "";
+                var s1 = card1[Math.floor(Math.random()*card1.length)];
+                var s2 = card2[Math.floor(Math.random()*card2.length)];
+                var s3 = card3[Math.floor(Math.random()*card3.length)];
+                cards[0] = s1;
+                cards[1] = s2;
+                num = card1.length + card1.length*card2*length + card1.indexOf(s1)*card2.length*card3.length + card2.indexOf(s2)*card3.length + card3.indexOf(s3);
+                if (s2.indexOf("nor") != -1) {
+                    cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
+                }
+                cards[2] = s3;
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + "such that " + s2 + " and such that " + s3;
+                sub.disabled = false;
+                checkbox.checked = false;
+                impossible();
+                $(".roll").prop("disabled", true);
+            }
+            function submit() {
+                var canvas = document.getElementById("canvas").contentDocument;
+                var text = canvas.querySelectorAll(".dcg-label-raw-text");
+                var labels = []
+                for (var i = 0; i < text.length; i++) {
+                    labels.push(text[i].innerHTML);
+                }
+                var points = [];
+                var angles = [];
+                for (var j = 0; j < labels.length; j++) {
+                    if (labels[j].indexOf("°") == -1) {
+                        points.push(labels[j]);
+                        continue;
+                    }
+                    angles.push(labels[j])
+                }
+                
+                if (check(angles, labels)) {
                     response.innerHTML = "Great job!";
                 }
                 else {
