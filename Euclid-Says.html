@@ -9,7 +9,7 @@
             <br>
             <h1>Euclid Says</h1>
             <br>
-            <span>Assign Problem (1 - 2040): </span><input id="assign" type="number" min="1" max="2040"><br><br><button id="assignBtn" onclick="assign()">Assign!</button>
+            <span>Assign Problem (1 - 2148): </span><input id="assign" type="number" min="1" max="2148"><br><br><button id="assignBtn" onclick="assign()">Assign!</button>
             <p style="margin: 0% 10%; font-size: 20px;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p><br>
             <iframe style="border: 2px black solid;" id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><br>
             <br>
@@ -42,7 +42,7 @@
             var problemNum = document.getElementById("problemNum");
             function assign() {
                 if (number.value == "") {
-                    problemNum.innerHTML = "Enter a number between 0 - 2039."
+                    problemNum.innerHTML = "Enter a number between 1 - 22148."
                     return;
                 }
                 if (problemID == parseInt(number.value-1)) {
@@ -67,9 +67,9 @@
                     prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
                 }
                 else {
-                    var s1 = card1[Math.floor((problemID - card1.length*card2.length)/(card2.length*card3.length))];
-                    var s2 = card2[Math.floor((problemID - card1.length*card2.length)/card3.length)];
-                    var s3 = card3[(problemID - card1.length*card2.length)%card3.length];
+                    var s1 = card1[Math.floor((problemID - card1.length*card2.length-card1.length)/(card2.length*card3.length))];
+                    var s2 = card2[Math.floor((problemID - card1.length*card2.length-card1.length)/card3.length)%card2.length];
+                    var s3 = card3[(problemID - card1.length*card2.length-card1.length)%card3.length];
                     cards[0] = s1;
                     cards[1] = s2;
                     if (s2.indexOf("nor") != -1) {
