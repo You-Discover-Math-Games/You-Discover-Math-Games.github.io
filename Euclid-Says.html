@@ -37,7 +37,7 @@
             var dict2 = ["and", "complementary", "congruent", "vertical", "adjacent", "supplementary"];
             var checkbox = document.getElementById("cb");
             var number = document.getElementById("assign");
-            var problemId = 0;
+            var problemID = 0;
             var problemNum = document.getElementById("problemNum");
             function assign() {
                 problemID = parseInt(number.value);
@@ -50,7 +50,7 @@
                     impossible();
                     $(".roll").prop("disabled", true);
                 }
-                problemNum.innerHTML = "Problem ID: " + problemId;
+                problemNum.innerHTML = "Problem ID: " + problemID;
             }
             function impossible() {
                 var iframe = document.getElementById("canvas");
@@ -214,15 +214,15 @@
                             if (k == 4 || (and_value >= 0 && and[and_value][0] == 4)) {
                                 if (and_value < 0) {
                                     if (cards[1].indexOf("not " + dict2[k]) != -1) {
-                                        success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) != 1);
+                                        success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) != 1 && Math.abs(points.indexOf("A") - points.indexOf("B")) != points.length - 1) ;
                                     }
                                     else {
-                                        success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) == 1);
+                                        success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) == 1 || Math.abs(points.indexOf("A") - points.indexOf("B")) == points.length - 1) ;
                                     }
                                     break;
                                 }
                                 else {
-                                    and_condition = and_condition && ((Math.abs(points.indexOf("A") - points.indexOf("B")) == 1) == and[and_value][1]);
+                                    and_condition = and_condition && ((Math.abs(points.indexOf("A") - points.indexOf("B")) == 1 || Math.abs(points.indexOf("A") - points.indexOf("B")) == points.length - 1) == and[and_value][1]);
                                     and_value += 1;
                                     if (and_value == 2) {
                                         success2 = and_condition;
