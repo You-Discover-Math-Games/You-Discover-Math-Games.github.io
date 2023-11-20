@@ -46,14 +46,21 @@
                     var s1 = card1[problemID];
                     cards[0] = s1;
                     prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
-                    sub.disabled = false;
-                    checkbox.checked = false;
-                    impossible();
-                    $(".roll").prop("disabled", true);
                 }
                 else if (problemID < card1.length + (card1.length - 1)*card2.length + card2.length) {
-                    problemI
+                    var s1 = card1[Math.floor(problemID - 5)/17];
+                    var s2 = card2[(problemID - 5)%17];
+                    cards[0] = s1;
+                    cards[1] = s2;
+                    if (s2.indexOf("nor") != -1) {
+                        cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
+                    }
+                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
                 }
+                sub.disabled = false;
+                checkbox.checked = false;
+                impossible();
+                $(".roll").prop("disabled", true);
                 assignBtn.disabled = true;
                 problemNum.innerHTML = "Problem ID: " + problemID;
             }
@@ -302,7 +309,7 @@
                 var s3 = card3[Math.floor(Math.random()*card3.length)];
                 cards[0] = s1;
                 cards[1] = s2;
-                num = card1.length + card1.length*card2*length + card1.indexOf(s1)*card2.length*card3.length + card2.indexOf(s2)*card3.length + card3.indexOf(s3);
+                num = card1.length + card1.length*card2.length + card1.indexOf(s1)*card2.length*card3.length + card2.indexOf(s2)*card3.length + card3.indexOf(s3);
                 if (s2.indexOf("nor") != -1) {
                     cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
                 }
