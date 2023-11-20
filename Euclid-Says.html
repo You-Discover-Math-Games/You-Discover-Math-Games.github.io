@@ -9,7 +9,7 @@
             <br>
             <h1>Euclid Says</h1>
             <br>
-            <span>Assign:</span><input id="assign" type="number" min="0" max="2039"><br><button id="assignBtn" onclick="assign()">Assign!</button>
+            <span>Assign Problem (0 - 2039): </span><input id="assign" type="number" min="0" max="2039"><br><br><button id="assignBtn" onclick="assign()">Assign!</button>
             <p style="margin: 0% 10%; font-size: 20px;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p><br>
             <iframe style="border: 2px black solid;" id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><br>
             <br>
@@ -38,10 +38,15 @@
             var checkbox = document.getElementById("cb");
             var number = document.getElementById("assign");
             var assignBtn = document.getElementById("assignBtn");
-            var problemID = 0;
+            var problemID = -1;
             var problemNum = document.getElementById("problemNum");
             function assign() {
-                if (problemID == parse(number.value))
+                if (number.value == "") {
+                    problemNumber.innerHTML = "Enter a number between 0 - 2039."
+                }
+                if (problemID == parseInt(number.value)) {
+                    problemNum.innerHTML = "You just did this problem!";
+                }
                 response.innerHTML = ""; 
                 problemID = parseInt(number.value);
                 if (problemID < card1.length) {
