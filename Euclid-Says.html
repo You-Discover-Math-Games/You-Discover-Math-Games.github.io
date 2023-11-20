@@ -83,7 +83,7 @@
                 impossible();
                 $(".roll").prop("disabled", true);
                 assignBtn.disabled = true;
-                problemNum.innerHTML = "Problem ID: " + problemID;
+                problemNum.innerHTML = "Problem ID: " + (problemID + 1);
             }
             function impossible() {
                 var iframe = document.getElementById("canvas");
