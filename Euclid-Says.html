@@ -68,11 +68,11 @@
                 var iframe = document.getElementById("canvas");
                 if (checkbox.checked) {
                     iframe.style.filter = "brightness(50%)";
-                    iframe.style.cursor = "default";
+                    iframe.style.pointerEvents = "none";
                 }
                 else {
                     iframe.style.filter = "brightness(100%)";
-                    iframe.style.cursor = "auto";
+                    iframe.style.pointerEvents = "auto";
                 }
             }
             function check(angles, points) {
