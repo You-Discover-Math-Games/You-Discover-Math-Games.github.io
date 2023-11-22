@@ -59,7 +59,7 @@
                     // Do something with the image data, such as saving it as a file or sending it to a server
                     // For example, you can create an anchor element and trigger a download action
                     const link = document.createElement("a");
-                    link.setAttribute("download", "Problem " + problemID + " Solution.png");
+                    link.setAttribute("download", "Problem " + (problemID + 1) + " Solution.png");
                     link.setAttribute("href", imageData);
                     link.click();
                 });
