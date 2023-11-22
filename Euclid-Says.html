@@ -24,6 +24,8 @@
             <br>
             <button onclick="submit()" id="sub" disabled>Submit!</button>
             <p id="response"></p>
+            <button onclick="save()" id="save" disabled>Save!</button>
+            <canvas id="saveCanvas"></canvas>
         </center>
         <script>
             var prompt = document.getElementById("Prompt");
@@ -40,6 +42,9 @@
             var assignBtn = document.getElementById("assignBtn");
             var problemID = -1;
             var problemNum = document.getElementById("problemNum");
+            function save() {
+                document.getElementById("canvas").contentWindow.jpe();
+            }
             function assign() {
                 if (number.value == "") {
                     problemNum.innerHTML = "Enter a number between 1 - 22148."
