@@ -50,6 +50,7 @@
                 html2canvas(captureElement).then((canvas) => {
                     // Get the image data as a base64-encoded string
                     var ctx = canvas.getContext('2d');
+                    ctx.globalCompositeOperation = 'destination-over';
                     ctx.fillStyle = "white";
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     const imageData = canvas.toDataURL("image/png");
