@@ -25,7 +25,7 @@
             <br>
             <button onclick="submit()" id="sub" disabled>Submit!</button>
             <p id="response"></p>
-            <button onclick="save()" id="save">Save!</button><br>
+            <button onclick="save()" id="save" disabled>Save!</button><br><br>
         </center>
         <script>
             var prompt = document.getElementById("Prompt");
@@ -42,6 +42,7 @@
             var assignBtn = document.getElementById("assignBtn");
             var problemID = -1;
             var problemNum = document.getElementById("problemNum");
+            var saveBtn = documen.getElementById("save");
             function save() {
                 // Select the element that you want to capture
                 const captureElement = document.getElementById("canvas").contentDocument.querySelectorAll(".dcg-grapher")[1];
@@ -58,7 +59,7 @@
                     // Do something with the image data, such as saving it as a file or sending it to a server
                     // For example, you can create an anchor element and trigger a download action
                     const link = document.createElement("a");
-                    link.setAttribute("download", "screenshot.png");
+                    link.setAttribute("download", "Problem " + problemID + " Solution.png");
                     link.setAttribute("href", imageData);
                     link.click();
                 });
@@ -331,6 +332,7 @@
                 $(".roll").prop("disabled", true);
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
                 assignBtn.disabled = true;
+                saveBtn.disabled - true;
             }
             function roll2() {
                 response.innerHTML = "";
@@ -349,6 +351,7 @@
                 $(".roll").prop("disabled", true);
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
                 assignBtn.disabled = true;
+                saveBtn.disabled - true;
             }
             function roll3() {
                 response.innerHTML = "";
@@ -369,6 +372,7 @@
                 $(".roll").prop("disabled", true);
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
                 assignBtn.disabled = true;
+                saveBtn.disabled - true;
             }
             function submit() {
                 var canvas = document.getElementById("canvas").contentDocument;
@@ -396,6 +400,7 @@
                 cards = ["", "", ""];
                 $(".roll").prop("disabled", false);
                 assignBtn.disabled = false;
+                saveBtn.disabled = false;
                 sub.disabled = true;
             }
         </script>
