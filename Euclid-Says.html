@@ -48,7 +48,7 @@
                 const captureElement = document.getElementById("canvas").contentDocument.querySelectorAll(".dcg-grapher")[1];
 
                 // Call the html2canvas function and pass the element as an argument
-                html2canvas(captureElement).then((canvas) => {
+                html2canvas(captureElement,{width: 500, height: 500}).then((canvas) => {
                     // Get the image data as a base64-encoded string
                     var ctx = canvas.getContext('2d');
                     ctx.globalCompositeOperation = 'destination-over';
