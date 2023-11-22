@@ -53,7 +53,7 @@
                 const captureElement = document.getElementById("canvas").contentDocument.querySelectorAll(".dcg-grapher")[1];
 
                 // Call the html2canvas function and pass the element as an argument
-                html2canvas(captureElement,{x: 250, y: 250, canvas: cv, background: "#fff"}).then((canvas) => {
+                html2canvas(captureElement,{x: 500, y: 500, canvas: cv, background: "#fff", windowWidth: 500, windowHeight: 500}).then((canvas) => {
                     // Get the image data as a base64-encoded string
                     const imageData = canvas.toDataURL("image/png");
 
@@ -403,10 +403,10 @@
                 assignBtn.disabled = false;
                 saveBtn.disabled = false;
                 sub.disabled = true;
-                ctx.font = "20px Arial";
+                ctx.font = "40px Arial";
                 ctx.textAlign = "center"
-                ctx.fillText(prompt.innerHTML, 500, 30);
-                ctx.fillText(textArea.value, 500, 450);
+                ctx.fillText(prompt.innerHTML, 500, 50);
+                ctx.fillText(textArea.value, 500, 750);
             }
         </script>
     </body>
