@@ -49,6 +49,9 @@
                 // Call the html2canvas function and pass the element as an argument
                 html2canvas(captureElement).then((canvas) => {
                     // Get the image data as a base64-encoded string
+                    var ctx = can.getContext('2d');
+                    ctx.fillStyle = "white";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
                     const imageData = canvas.toDataURL("image/png");
 
                     // Do something with the image data, such as saving it as a file or sending it to a server
