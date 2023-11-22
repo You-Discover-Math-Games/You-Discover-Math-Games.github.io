@@ -48,12 +48,10 @@
                 const captureElement = document.getElementById("canvas").contentDocument.querySelectorAll(".dcg-grapher")[1];
 
                 // Call the html2canvas function and pass the element as an argument
-                html2canvas(captureElement,{width: 500, height: 500}).then((canvas) => {
+                html2canvas(captureElement,{width: 500, height: 500, x:250, y: 250, backgroundColor: "white"}).then((canvas) => {
                     // Get the image data as a base64-encoded string
                     var ctx = canvas.getContext('2d');
                     ctx.globalCompositeOperation = 'destination-over';
-                    ctx.fillStyle = "white";
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
                     const imageData = canvas.toDataURL("image/png");
 
                     // Do something with the image data, such as saving it as a file or sending it to a server
@@ -66,7 +64,7 @@
             }
             function assign() {
                 if (number.value == "") {
-                    problemNum.innerHTML = "Enter a number between 1 - 22148."
+                    problemNum.innerHTML = "Enter a number between 1 - 2148."
                     return;
                 }
                 if (problemID == parseInt(number.value-1)) {
