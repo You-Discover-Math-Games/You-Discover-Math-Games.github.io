@@ -43,7 +43,7 @@
             var problemID = -1;
             var problemNum = document.getElementById("problemNum");
             function save() {
-                document.getElementById("canvas").contentWindow.jpe();
+                document.getElementById("canvas").contentDocument.save();
             }
             function assign() {
                 if (number.value == "") {
