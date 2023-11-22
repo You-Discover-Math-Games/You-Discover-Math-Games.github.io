@@ -54,7 +54,7 @@
                 ctx.x = 500;
                 ctx.y = 500;
                 // Call the html2canvas function and pass the element as an argument
-                html2canvas(captureElement,{canvas: cv, background: "#fff", windowWidth: 500, windowHeight: 500}).then((canvas) => {
+                html2canvas(captureElement,{canvas: cv, background: "#fff", windowWidth: 1000, windowHeight: 1000}).then((canvas) => {
                     // Get the image data as a base64-encoded string
                     const imageData = canvas.toDataURL("image/png");
 
@@ -433,18 +433,16 @@
                 assignBtn.disabled = false;
                 saveBtn.disabled = false;
                 sub.disabled = true;
-                ctx.font = "20px Arial";
+                ctx.font = "30px Arial";
                 ctx.textAlign = "center";
-                var lines = fragmentText(prompt.innerHTML, 1000 - parseInt(20,0));
+                var lines = fragmentText(prompt.innerHTML, 1000 - parseInt(30,0));
                 lines.forEach(function(line, i) {
-                    ctx.fillText(line, 1000 / 2, (i + 1) * parseInt(20,0));
+                    ctx.fillText(line, 1000 / 2, (i + 1) * parseInt(30,0));
                 });
-                var lines = fragmentText(textArea.value, 1000 - parseInt(20,0));
+                var lines = fragmentText(textArea.value, 1000 - parseInt(30,0));
                 lines.forEach(function(line, i) {
-                    ctx.fillText(line, 1000 / 2, (i + 40) * parseInt(20,0));
+                    ctx.fillText(line, 1000 / 2, (i + 40) * parseInt(30,0));
                 });
-                ctx.fillText(prompt.innerHTML, 500, 50);
-                ctx.fillText(textArea.value, 500, 750);
             }
         </script>
     </body>
