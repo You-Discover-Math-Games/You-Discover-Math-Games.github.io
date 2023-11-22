@@ -3,6 +3,7 @@
         <title>Euclid Says - You Discover Math</title>
         <link rel="icon" type="image/x-icon" href="Favicon.png">
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     </head>
     <body style="margin: 0 0;">
         <center>
@@ -25,7 +26,6 @@
             <button onclick="submit()" id="sub" disabled>Submit!</button>
             <p id="response"></p>
             <button onclick="save()" id="save">Save!</button><br>
-            <canvas id="saveCanvas"></canvas>
         </center>
         <script>
             var prompt = document.getElementById("Prompt");
@@ -43,7 +43,21 @@
             var problemID = -1;
             var problemNum = document.getElementById("problemNum");
             function save() {
-                document.getElementById("canvas").contentWindow.save();
+                // Select the element that you want to capture
+                const captureElement = document.getElementById("canvas").contentDocument.querySelectorAll(".dcg-grapher")[1];
+
+                // Call the html2canvas function and pass the element as an argument
+                html2canvas(captureElement).then((canvas) => {
+                    // Get the image data as a base64-encoded string
+                    const imageData = canvas.toDataURL("image/png");
+
+                    // Do something with the image data, such as saving it as a file or sending it to a server
+                    // For example, you can create an anchor element and trigger a download action
+                    const link = document.createElement("a");
+                    link.setAttribute("download", "screenshot.png");
+                    link.setAttribute("href", imageData);
+                    link.click();
+                });
             }
             function assign() {
                 if (number.value == "") {
