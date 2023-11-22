@@ -21,13 +21,17 @@
             <input id="cb" type="checkbox" onclick="impossible()">
             <label onclick="impossible()">Impossible</label>
             <p>Enter your reasoning:</p>
-            <textarea style="width: 50%; height: 7%; font-family: 'Times New Roman';"></textarea><br>
+            <textarea id="text" style="width: 50%; height: 7%; font-family: 'Times New Roman'; font-size: 15px;"></textarea><br>
             <br>
             <button onclick="submit()" id="sub" disabled>Submit!</button>
             <p id="response"></p>
             <button onclick="save()" id="save" disabled>Save!</button><br><br>
+            <canvas id="SaveDiagram" width="500" height="500">
+            </canvas>
         </center>
         <script>
+            var cv = document.getElementById("SaveDiagram");
+            var cxt = cv.getContext('2d');
             var prompt = document.getElementById("Prompt");
             var sub = document.getElementById("sub");
             var response = document.getElementById("response");
@@ -43,15 +47,14 @@
             var problemID = -1;
             var problemNum = document.getElementById("problemNum");
             var saveBtn = document.getElementById("save");
+            var textArea = document.getElementById("text");
             function save() {
                 // Select the element that you want to capture
                 const captureElement = document.getElementById("canvas").contentDocument.querySelectorAll(".dcg-grapher")[1];
 
                 // Call the html2canvas function and pass the element as an argument
-                html2canvas(captureElement,{width: 500, height: 500, x:100, y: 100, background: "#fff", windowWidth: captureElement.scrollWidth, windowHeight: captureElement.scrollHeight}).then((canvas) => {
+                html2canvas(captureElement,{x:(250 - captureElement.scrollWidth/2), y:(250 - captureElement.scrollHeight/2), canvas: cv, background: "#fff"}).then((canvas) => {
                     // Get the image data as a base64-encoded string
-                    var ctx = canvas.getContext('2d');
-                    ctx.globalCompositeOperation = 'destination-over';
                     const imageData = canvas.toDataURL("image/png");
 
                     // Do something with the image data, such as saving it as a file or sending it to a server
@@ -400,6 +403,10 @@
                 assignBtn.disabled = false;
                 saveBtn.disabled = false;
                 sub.disabled = true;
+                ctx.font = "20px Arial";
+                ctx.textAlign = "center"
+                ctx.fillText(prompt.innerHTML, 250, 10);
+                ctx.fillText(textArea.innerHTML, 250, 450);
             }
         </script>
     </body>
