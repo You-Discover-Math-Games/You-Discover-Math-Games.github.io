@@ -60,7 +60,7 @@
                 ctx.font = "26px Arial";
                 var lines = fragmentText(textArea.value, 750 - parseInt(26,0));
                 lines.forEach(function(line, i) {
-                    ctx.fillText(line, 750 / 2, (i + 30) * parseInt(26,0));
+                    ctx.fillText(line, 750 / 2, (i + 23) * parseInt(26,0));
                 });
                 html2canvas(captureElement,{background: "#fff"}).then((canvas) => {
                     // Get the image data as a base64-encoded string
