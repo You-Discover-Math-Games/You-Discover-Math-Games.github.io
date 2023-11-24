@@ -57,6 +57,9 @@
                     
                     ctx.drawImage(canvas, 375 - canvas.width/2, 375 - canvas.height/2);
                     const imageData = cv.toDataURL("image/png");
+                    ctx.fillStyle = "#fff";
+                    ctx.globalCompositeOperation = 'destination-over'
+                    ctx.fillRect(0,0,cv.width,cv.height);
 
                     // Do something with the image data, such as saving it as a file or sending it to a server
                     // For example, you can create an anchor element and trigger a download action
@@ -64,6 +67,10 @@
                     link.setAttribute("download", "Problem " + (problemID + 1) + " Solution.png");
                     link.setAttribute("href", imageData);
                     link.click();
+                    
+                    ctx.clearRect(0, 0,canvas.width, canvas.height);
+                    ctx.fillStyle = "#000";
+                    ctx.globalCompositeOperation = 'source-over';
                 });
             }
             function fragmentText(text, maxWidth) {
