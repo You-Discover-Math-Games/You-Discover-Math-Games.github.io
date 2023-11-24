@@ -26,7 +26,7 @@
             <button onclick="submit()" id="sub" disabled>Submit!</button>
             <p id="response"></p>
             <button onclick="save()" id="save" disabled>Save!</button><br><br>
-            <canvas id="SaveDiagram" width="1000" height="1000" style="border: 2px black solid;">
+            <canvas id="SaveDiagram" width="750" height="750" style="border: 2px black solid;">
             </canvas>
         </center>
         <script>
@@ -54,9 +54,11 @@
                 ctx.x = 500;
                 ctx.y = 500;
                 // Call the html2canvas function and pass the element as an argument
-                html2canvas(captureElement,{canvas: cv, background: "#fff", width: 1000, height: 1000}).then((canvas) => {
+                html2canvas(captureElement,{background: "#fff"}).then((canvas) => {
                     // Get the image data as a base64-encoded string
-                    const imageData = canvas.toDataURL("image/png");
+                    
+                    ctx.drawImage(canvas, 375 - canvas.width/2, 375 - canvas.height/2);
+                    const imageData = ctx.toDataURL("image/png");
 
                     // Do something with the image data, such as saving it as a file or sending it to a server
                     // For example, you can create an anchor element and trigger a download action
