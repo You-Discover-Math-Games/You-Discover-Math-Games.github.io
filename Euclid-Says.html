@@ -56,19 +56,19 @@
                     // Get the image data as a base64-encoded string
                     
                     ctx.drawImage(canvas, 375 - canvas.width/2, 375 - canvas.height/2);
-                    const imageData = cv.toDataURL("image/png");
                     ctx.fillStyle = "#fff";
                     ctx.globalCompositeOperation = 'destination-over'
                     ctx.fillRect(0,0,cv.width,cv.height);
 
+                    const imageData = cv.toDataURL("image/png");
                     // Do something with the image data, such as saving it as a file or sending it to a server
                     // For example, you can create an anchor element and trigger a download action
                     const link = document.createElement("a");
                     link.setAttribute("download", "Problem " + (problemID + 1) + " Solution.png");
                     link.setAttribute("href", imageData);
                     link.click();
-                    
-                    ctx.clearRect(0, 0,canvas.width, canvas.height);
+
+                    ctx.clearRect(0, 0,cv.width, cv.height);
                     ctx.fillStyle = "#000";
                     ctx.globalCompositeOperation = 'source-over';
                 });
@@ -446,9 +446,10 @@
                 lines.forEach(function(line, i) {
                     ctx.fillText(line, 750 / 2, (i + 1) * parseInt(30,0));
                 });
-                var lines = fragmentText(textArea.value, 750 - parseInt(30,0));
+                ctx.font = "20px Arial";
+                var lines = fragmentText(textArea.value, 750 - parseInt(20,0));
                 lines.forEach(function(line, i) {
-                    ctx.fillText(line, 750 / 2, (i + 23) * parseInt(30,0));
+                    ctx.fillText(line, 750 / 2, (i + 23) * parseInt(20,0));
                 });
             }
         </script>
