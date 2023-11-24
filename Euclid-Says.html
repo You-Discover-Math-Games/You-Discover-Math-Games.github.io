@@ -51,7 +51,17 @@
             function save() {
                 // Select the element that you want to capture
                 const captureElement = document.getElementById("canvas").contentDocument.querySelectorAll(".dcg-grapher")[1];
-                // Call the html2canvas function and pass the element as an argument
+                ctx.font = "30px Arial";
+                ctx.textAlign = "center";
+                var lines = fragmentText(prompt.innerHTML, 750 - parseInt(30,0));
+                lines.forEach(function(line, i) {
+                    ctx.fillText(line, 750 / 2, (i + 1) * parseInt(30,0));
+                });
+                ctx.font = "26px Arial";
+                var lines = fragmentText(textArea.value, 750 - parseInt(26,0));
+                lines.forEach(function(line, i) {
+                    ctx.fillText(line, 750 / 2, (i + 30) * parseInt(26,0));
+                });
                 html2canvas(captureElement,{background: "#fff"}).then((canvas) => {
                     // Get the image data as a base64-encoded string
                     
@@ -441,17 +451,6 @@
                 assignBtn.disabled = false;
                 saveBtn.disabled = false;
                 sub.disabled = true;
-                ctx.font = "30px Arial";
-                ctx.textAlign = "center";
-                var lines = fragmentText(prompt.innerHTML, 750 - parseInt(30,0));
-                lines.forEach(function(line, i) {
-                    ctx.fillText(line, 750 / 2, (i + 1) * parseInt(30,0));
-                });
-                ctx.font = "26px Arial";
-                var lines = fragmentText(textArea.value, 750 - parseInt(26,0));
-                lines.forEach(function(line, i) {
-                    ctx.fillText(line, 750 / 2, (i + 30) * parseInt(26,0));
-                });
             }
         </script>
     </body>
