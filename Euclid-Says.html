@@ -71,6 +71,7 @@
                     ctx.clearRect(0, 0,cv.width, cv.height);
                     ctx.fillStyle = "#000";
                     ctx.globalCompositeOperation = 'source-over';
+                    saveBtn.disabled = true;
                 });
             }
             function fragmentText(text, maxWidth) {
@@ -370,7 +371,7 @@
                 $(".roll").prop("disabled", true);
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
                 assignBtn.disabled = true;
-                saveBtn.disabled - true;
+                saveBtn.disabled = true;
             }
             function roll2() {
                 response.innerHTML = "";
@@ -389,7 +390,7 @@
                 $(".roll").prop("disabled", true);
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
                 assignBtn.disabled = true;
-                saveBtn.disabled - true;
+                saveBtn.disabled = true;
             }
             function roll3() {
                 response.innerHTML = "";
@@ -410,7 +411,7 @@
                 $(".roll").prop("disabled", true);
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
                 assignBtn.disabled = true;
-                saveBtn.disabled - true;
+                saveBtn.disabled = true;
             }
             function submit() {
                 var canvas = document.getElementById("canvas").contentDocument;
@@ -454,4 +455,4 @@
             }
         </script>
     </body>
-</html>
+</html> 
