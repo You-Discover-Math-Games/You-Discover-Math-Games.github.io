@@ -58,7 +58,7 @@
                     // Get the image data as a base64-encoded string
                     
                     ctx.drawImage(canvas, 375 - canvas.width/2, 375 - canvas.height/2);
-                    const imageData = ctx.toDataURL("image/png");
+                    const imageData = cv.toDataURL("image/png");
 
                     // Do something with the image data, such as saving it as a file or sending it to a server
                     // For example, you can create an anchor element and trigger a download action
@@ -437,13 +437,13 @@
                 sub.disabled = true;
                 ctx.font = "30px Arial";
                 ctx.textAlign = "center";
-                var lines = fragmentText(prompt.innerHTML, 1000 - parseInt(30,0));
+                var lines = fragmentText(prompt.innerHTML, 750 - parseInt(30,0));
                 lines.forEach(function(line, i) {
-                    ctx.fillText(line, 1000 / 2, (i + 1) * parseInt(30,0));
+                    ctx.fillText(line, 750 / 2, (i + 1) * parseInt(30,0));
                 });
-                var lines = fragmentText(textArea.value, 1000 - parseInt(30,0));
+                var lines = fragmentText(textArea.value, 750 - parseInt(30,0));
                 lines.forEach(function(line, i) {
-                    ctx.fillText(line, 1000 / 2, (i + 25) * parseInt(30,0));
+                    ctx.fillText(line, 750 / 2, (i + 23) * parseInt(30,0));
                 });
             }
         </script>
