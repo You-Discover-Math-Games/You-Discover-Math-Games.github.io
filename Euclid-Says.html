@@ -34,29 +34,29 @@
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
                 </div>
             </div>
             <br>
-            <br>
-            <span>Assign Problem (1 - 2148): </span><input id="assign" type="number" min="1" max="2148"><br><br><button id="assignBtn" onclick="assign()">Assign!</button>
             <p style="margin: 0% 10%; font-size: 20px;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p><br>
             <iframe style="border: 2px black solid;" id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><br>
             <br>
             <p id="problemNum"></p><br>
-            <button class="roll" onclick="roll1()">1 Card!</button>
-            <button class="roll" onclick="roll2()">2 Cards!</button>
-            <button class="roll" onclick="roll3()">3 Cards!</button><br><br>
+            <span>Difficulty: </span>
+            <button class="roll" class="btn btn-secondary" onclick="roll1()">Easy!</button>
+            <button class="roll" class="btn btn-secondary" onclick="roll2()">Medium!</button>
+            <button class="roll" class="btn btn-secondary" onclick="roll3()">Hard!</button><br><br>
             <input id="cb" type="checkbox" onclick="impossible()">
             <label onclick="impossible()">Impossible</label>
             <p>Enter your reasoning:</p>
             <textarea id="text" style="width: 50%; height: 7%; font-family: 'Times New Roman'; font-size: 15px;"></textarea><br>
             <br>
-            <button onclick="submit()" id="sub" disabled>Submit!</button>
+            <button onclick="submit()" id="sub"  class="btn btn-success" disabled>Submit!</button>
             <p id="response"></p>
-            <button onclick="save()" id="save" disabled>Save!</button><br><br>
+            <button onclick="save()" id="save" class="btn btn-info" disabled>Save!</button><br><br>
+            <br>
+            <span>Assign Problem (1 - 2148): </span><input id="assign" type="number" min="1" max="2148"><br><br><button id="assignBtn"  class="btn btn-primary" onclick="assign()">Assign!</button>
             <canvas id="SaveDiagram" style="display: none;" width="750" height="750" style="border: 2px black solid;">
             </canvas>
         </center>
