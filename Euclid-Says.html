@@ -34,11 +34,17 @@
                 </div>
             </div>
             <br>
-            <p style="margin: 0% 10%; font-size: 20px;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p><br>
+            <p style="margin: 0% 10%; font-size: 20px;" id="Prompt">If possible draw a (plane) geometric figure and label two angles A and B...</p>
+            <ul style="display: none;">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <br>
             <iframe style="border: 2px black solid;" id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><br>
             <br>
             <p id="problemNum"></p><br>
-            <div style="display: flex; justify-content: center; align-content: center;">
+            <div style="display: flex; justify-content: center; align-items: center;">
                 <div style="margin-right: 5px;">
                     <span>Difficulty: </span>
                     <button class="roll btn btn-success" onclick="roll1()">Easy!</button>
@@ -50,7 +56,7 @@
                 </div>
             </div>
             <br><br>
-            <div style="display: flex; justify-content: center; align-content: center;">
+            <div style="display: flex; justify-content: center; align-items: center;">
                 <div style="margin-right: 5px;">
                     <input id="cb" type="checkbox" onclick="impossible()">
                     <label onclick="impossible()">Impossible</label>
