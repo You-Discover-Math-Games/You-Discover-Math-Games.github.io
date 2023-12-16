@@ -55,7 +55,7 @@
                     <svg data-toggle="modal" data-target="#exampleModal" style="cursor: pointer;" onclick="modalText(0)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path></svg>
                 </div>
             </div>
-            <br><br>
+            <br>
             <div style="display: flex; justify-content: center; align-items: center;">
                 <div style="margin-right: 5px;">
                     <input id="cb" type="checkbox" onclick="impossible()">
@@ -64,7 +64,7 @@
                 <div style="margin-left: 5px;">
                     <svg data-toggle="modal" data-target="#exampleModal" style="cursor: pointer;" onclick="modalText(1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path></svg>
                 </div>
-            </div>
+            </div><br>
             <p>Enter your reasoning:</p>
             <textarea id="text" style="width: 50%; height: 7%; font-size: 15px;"></textarea><br>
             <br>
@@ -147,6 +147,7 @@
                     ctx.fillStyle = "#000";
                     ctx.globalCompositeOperation = 'source-over';
                     saveBtn.disabled = true;
+                    saveBtn.style.filter = "brightness(75%)";
                 });
             }
             function fragmentText(text, maxWidth) {
@@ -217,6 +218,7 @@
                     prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + "such that " + s2 + " and such that " + s3;
                 }
                 sub.disabled = false;
+                sub.style.filter = "brightness(100%)";
                 checkbox.checked = false;
                 impossible();
                 $(".roll").prop("disabled", true);
@@ -441,12 +443,14 @@
                 cards[0] = s1;
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
                 sub.disabled = false;
+                sub.style.filter = "brightness(100%)";
                 checkbox.checked = false;
                 impossible();
                 $(".roll").prop("disabled", true);
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
                 assignBtn.disabled = true;
                 saveBtn.disabled = true;
+                saveBtn.style.filter = "brightness(75%)";
             }
             function roll2() {
                 response.innerHTML = "";
@@ -460,12 +464,14 @@
                 }
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
                 sub.disabled = false;
+                sub.style.filter = "brightness(100%)";
                 checkbox.checked = false;
                 impossible();
                 $(".roll").prop("disabled", true);
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
                 assignBtn.disabled = true;
                 saveBtn.disabled = true;
+                saveBtn.style.filter = "brightness(75%)";
             }
             function roll3() {
                 response.innerHTML = "";
@@ -481,12 +487,14 @@
                 cards[2] = s3;
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + "such that " + s2 + " and such that " + s3;
                 sub.disabled = false;
+                sub.style.filter = "brightness(100%)";
                 checkbox.checked = false;
                 impossible();
                 $(".roll").prop("disabled", true);
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
                 assignBtn.disabled = true;
                 saveBtn.disabled = true;
+                saveBtn.style.filter = "brightness(75%)";
             }
             function submit() {
                 var canvas = document.getElementById("canvas").contentDocument;
@@ -515,7 +523,9 @@
                 $(".roll").prop("disabled", false);
                 assignBtn.disabled = false;
                 saveBtn.disabled = false;
+                saveBtn.style.filter = "brightness(100%)";
                 sub.disabled = true;
+                sub.style.filter = "brightness(75%)";
             }
         </script>
     </body>
