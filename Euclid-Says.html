@@ -72,7 +72,14 @@
             <p id="response"></p>
             <button onclick="save()" id="save" style="filter: brightness(75%);" class="btn btn-info" disabled>Save!</button><br><br>
             <br>
-            <span>Assign Problem (1 - 2148): </span><input id="assign" type="number" min="1" max="2148"><br><br><button id="assignBtn"  class="btn btn-primary" onclick="assign()">Assign!</button>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <div style="margin-right: 5px;">
+                    <span>Enter Problem ID (1 - 2148): </span><input id="assign" type="number" min="1" max="2148"><br><br><button id="assignBtn"  class="btn btn-primary" onclick="assign()">Try it!</button>
+                </div>
+                <div style="margin-left: 5px;">
+                    <svg data-toggle="modal" data-target="#exampleModal" style="cursor: pointer;" onclick="modalText(2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path></svg>
+                </div>
+            </div>
             <br><br>
             <canvas id="SaveDiagram" style="display: none;" width="750" height="750" style="border: 2px black solid;">
             </canvas>
@@ -97,9 +104,10 @@
             var saveBtn = document.getElementById("save");
             var textArea = document.getElementById("text");
             function modalText(index) {
-                var title = ["Difficulty Buttons", "\"Impossible\" Checkmark "];
+                var title = ["Difficulty Buttons", "\"Impossible\" Checkmark", "Problem ID's and Choosing Problems"];
                 var txt = ["This difficulty represents the number of conditions that Euclid gives when you press the button. Easy gives one, medium gives two, and hard gives three.",
-                            "Since Euclid's challenges are random, the combination of conditions might result in an impossible task. If this happens click this checkmark to signal that it is impossible"];
+                            "Since Euclid's challenges are random, the combination of conditions might result in an impossible task. If this happens click this checkmark to signal that it is impossible",
+                            "If you are playing in a group, a friend might recommend a specific problem. If they give you a problem ID, you can ener it here to play the same problem."];
                 document.getElementById("exampleModalLabel").innerHTML = title[index];
                 document.getElementById("exampleModalBody").innerHTML = txt[index];
             }
