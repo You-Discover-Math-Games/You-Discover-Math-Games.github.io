@@ -441,7 +441,7 @@
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 problemID = card1.indexOf(s1);
                 cards[0] = s1;
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B<br>" + s1.substring(0,s1.length-2) + ".";
                 sub.disabled = false;
                 sub.style.filter = "brightness(100%)";
                 checkbox.checked = false;
@@ -462,7 +462,7 @@
                 if (s2.indexOf("nor") != -1) {
                     cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
                 }
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B<br>" + s1+ "<br>such that " + s2 + ".";
                 sub.disabled = false;
                 sub.style.filter = "brightness(100%)";
                 checkbox.checked = false;
@@ -485,7 +485,7 @@
                     cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
                 }
                 cards[2] = s3;
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + "such that " + s2 + " and such that " + s3;
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B<br>" + s1 + "<br>such that " + s2 + "<br>and such that " + s3;
                 sub.disabled = false;
                 sub.style.filter = "brightness(100%)";
                 checkbox.checked = false;
