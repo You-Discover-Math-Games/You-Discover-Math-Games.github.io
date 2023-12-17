@@ -82,6 +82,20 @@
             </div>
             <br><button id="assignBtn"  class="btn btn-primary" onclick="assign()">Try it!</button>
             <br><br>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Settings
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <strong>This is the first item's accordion body.</strong>
+                    </div>
+                  </div>
+                </div>
+            </div>
             <canvas id="SaveDiagram" style="display: none;" width="750" height="750" style="border: 2px black solid;">
             </canvas>
         </center>
