@@ -98,7 +98,7 @@
             var textArea = document.getElementById("text");
             function modalText(index) {
                 var title = ["Difficulty Buttons", "\"Impossible\" Checkmark "];
-                var txt = ["This difficulty represents the number of condition that Euclid gives when you press the button. Easy gives one, medium gives two, and hard gives three.",
+                var txt = ["This difficulty represents the number of conditions that Euclid gives when you press the button. Easy gives one, medium gives two, and hard gives three.",
                             "Since Euclid's challenges are random, the combination of conditions might result in an impossible task. If this happens click this checkmark to signal that it is impossible"];
                 document.getElementById("exampleModalLabel").innerHTML = title[index];
                 document.getElementById("exampleModalBody").innerHTML = txt[index];
@@ -193,7 +193,7 @@
                 if (problemID < card1.length) {
                     var s1 = card1[problemID];
                     cards[0] = s1;
-                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
+                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B<br>" + s1.substring(0,s1.length-2) + ".";
                 }
                 else if (problemID < card1.length + (card1.length - 1)*card2.length + card2.length) {
                     var s1 = card1[Math.floor((problemID - card1.length)/card2.length)];
@@ -203,7 +203,7 @@
                     if (s2.indexOf("nor") != -1) {
                         cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
                     }
-                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
+                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B<br>" + s1+ "<br>such that " + s2 + ".";
                 }
                 else {
                     var s1 = card1[Math.floor((problemID - card1.length*card2.length-card1.length)/(card2.length*card3.length))];
@@ -215,7 +215,7 @@
                         cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
                     }
                     cards[2] = s3;
-                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + "such that " + s2 + " and such that " + s3;
+                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B<br>" + s1 + "<br>such that " + s2 + "<br>and such that " + s3;
                 }
                 sub.disabled = false;
                 sub.style.filter = "brightness(100%)";
