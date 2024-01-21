@@ -148,13 +148,13 @@
             </canvas>
             <div id="setting" style="display: none;">
                 <h2>Toggle geometry terms</h2>
-                <label>Acute:</label><label class='switch'><input type='checkbox' class='toggle' data-term='acute' checked><span class='slider round'></span></label>
-                <label>Obtuse:</label><label class='switch'><input type='checkbox' class='toggle' data-term='obtuse' checked><span class='slider round'></span></label>
-                <label>Right:</label><label class='switch'><input type='checkbox' class='toggle' data-term='right' checked><span class='slider round'></span></label>
-                <label>Congruent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='congruent' checked><span class='slider round'></span></label>
-                <label>Complementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='complementary' checked><span class='slider round'></span></label>
-                <label>Supplementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='supplementary' checked><span class='slider round'></span></label>
-                <label>Adjacent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='adjacent' checked><span class='slider round'></span></label>
+                <label>Acute:</label><label class='switch'><input type='checkbox' class='toggle' data-term='acute' checked><span class='slider round'></span></label><br>
+                <label>Obtuse:</label><label class='switch'><input type='checkbox' class='toggle' data-term='obtuse' checked><span class='slider round'></span></label><br>
+                <label>Right:</label><label class='switch'><input type='checkbox' class='toggle' data-term='right' checked><span class='slider round'></span></label><br>
+                <label>Congruent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='congruent' checked><span class='slider round'></span></label><br>
+                <label>Complementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='complementary' checked><span class='slider round'></span></label><br>
+                <label>Supplementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='supplementary' checked><span class='slider round'></span></label><br>
+                <label>Adjacent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='adjacent' checked><span class='slider round'></span></label><br>
             </div>
         </center>
         <script>
@@ -523,7 +523,7 @@
             function roll1() {
                 response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
-                var restrictions = document.querySelectorAll(".toggle:checked");
+                var restrictions = document.querySelectorAll(".toggle:not(checked)");
                 for (var i = 0; i < restrictions.length; i++) {
                     while (s1.indexOf(restrictions[i].dataset.term) != -1) {
                         var s1 = card1[Math.floor(Math.random()*card1.length)];
@@ -546,7 +546,7 @@
                 response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 var s2 = card2[Math.floor(Math.random()*card2.length)];
-                var restrictions = document.querySelectorAll(".toggle:checked");
+                var restrictions = document.querySelectorAll(".toggle:not(checked)");
                 for (var i = 0; i < restrictions.length; i++) {
                     var strings = [s1, s2];
                     var choices = [card1, card2];
@@ -578,7 +578,7 @@
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 var s2 = card2[Math.floor(Math.random()*card2.length)];
                 var s3 = card3[Math.floor(Math.random()*card3.length)];
-                var restrictions = document.querySelectorAll(".toggle:checked");
+                var restrictions = document.querySelectorAll(".toggle:not(checked)");
                 for (var i = 0; i < restrictions.length; i++) {
                     var strings = [s1, s2, s3];
                     var choices = [card1, card2, card3];
