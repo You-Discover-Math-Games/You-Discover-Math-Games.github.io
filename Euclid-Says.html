@@ -531,7 +531,7 @@
             function roll1() {
                 response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
-                var restrictions = document.querySelectorAll(".toggle:not(checked)");
+                var restrictions = document.querySelectorAll(".toggle:not(:checked)");
                 for (var i = 0; i < restrictions.length; i++) {
                     while (s1.indexOf(restrictions[i].dataset.term) != -1) {
                         var s1 = card1[Math.floor(Math.random()*card1.length)];
@@ -554,7 +554,7 @@
                 response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 var s2 = card2[Math.floor(Math.random()*card2.length)];
-                var restrictions = document.querySelectorAll(".toggle:not(checked)");
+                var restrictions = document.querySelectorAll(".toggle:not(:checked)");
                 for (var i = 0; i < restrictions.length; i++) {
                     var strings = [s1, s2];
                     var choices = [card1, card2];
@@ -586,7 +586,7 @@
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 var s2 = card2[Math.floor(Math.random()*card2.length)];
                 var s3 = card3[Math.floor(Math.random()*card3.length)];
-                var restrictions = document.querySelectorAll(".toggle:not(checked)");
+                var restrictions = document.querySelectorAll(".toggle:not(:checked)");
                 for (var i = 0; i < restrictions.length; i++) {
                     var strings = [s1, s2, s3];
                     var choices = [card1, card2, card3];
