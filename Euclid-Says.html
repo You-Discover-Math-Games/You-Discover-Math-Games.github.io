@@ -534,7 +534,7 @@
                 for (var i = 0; i < new_cards.length; i++) {
                     for (var j = 0; j < restrictions.length; j++) {
                         new_cards[i] = new_cards[i].filter(function(item) {
-                            return item != restrictions[j].dataset.term;
+                            return item.indexOf(restrictions[j].dataset.term) == -1;
                         })
                     }
                 }
@@ -565,7 +565,7 @@
                 for (var i = 0; i < new_cards.length; i++) {
                     for (var j = 0; j < restrictions.length; j++) {
                         new_cards[i] = new_cards[i].filter(function(item) {
-                            return item != restrictions[j].dataset.term;
+                            return item.indexOf(restrictions[j].dataset.term) == -1;
                         })
                     }
                 }
@@ -601,7 +601,7 @@
                 for (var i = 0; i < new_cards.length; i++) {
                     for (var j = 0; j < restrictions.length; j++) {
                         new_cards[i] = new_cards[i].filter(function(item) {
-                            return item != restrictions[j].dataset.term;
+                            return item.indexOf(restrictions[j].dataset.term) == -1;
                         })
                     }
                 }
