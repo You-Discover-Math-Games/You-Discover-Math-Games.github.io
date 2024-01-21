@@ -134,7 +134,7 @@
             <br>
             <div style="display: flex; justify-content: center; align-items: center;">
                 <div style="margin-right: 5px;">
-                    <span>Enter Problem ID (1 - 2148): </span><input id="assign" type="number" min="1" max="2148">
+                    <span id="assigntxt"></span><input id="assign" type="number" min="1">
                 </div>
                 <div style="margin-left: 5px;">
                     <svg data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;" onclick="modalText(2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path></svg>
@@ -146,19 +146,29 @@
             <br>
             <canvas id="SaveDiagram" style="display: none;" width="750" height="750" style="border: 2px black solid;">
             </canvas>
+            <div id="setting" style="display: none;">
+                <h2>Toggle geometry terms</h2>
+                <label>Acute:</label><label class='switch'><input type='checkbox' class='toggle' data-term='acute' checked><span class='slider round'></span></label>
+                <label>Obtuse:</label><label class='switch'><input type='checkbox' class='toggle' data-term='obtuse' checked><span class='slider round'></span></label>
+                <label>Right:</label><label class='switch'><input type='checkbox' class='toggle' data-term='right' checked><span class='slider round'></span></label>
+                <label>Congruent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='congruent' checked><span class='slider round'></span></label>
+                <label>Complementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='complementary' checked><span class='slider round'></span></label>
+                <label>Supplementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='supplementary' checked><span class='slider round'></span></label>
+                <label>Adjacent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='adjacent' checked><span class='slider round'></span></label>
+            </div>
         </center>
         <script>
             var cv = document.getElementById("SaveDiagram");
             var ctx = cv.getContext('2d');
             var prompt = document.getElementById("Prompt");
             var sub = document.getElementById("sub");
-            var response = document.getElementById("response");
+            var response = document.getElementByIod("response");
             var card1 = ["one of which is acute and the other of which is right, ", "one of which is acute and the other of which is obtuse, ","one of which is right and the other of which is obtuse, ","both of which are acute, ","both of which are right, ","both of which are obtuse, "];
-            var card2 = ["angle A and angle B are complementary","angle A and angle B are congruent","angle A and angle B are vertical","angle A and angle B are adjacent","angle A and angle B are not complementary","angle A and angle B are supplementary","angle A and angle B are not supplementary","angle A and angle B are congruent and complementary","angle A and angle B are congruent and supplementary","angle A and angle B are complementary and not congruent","angle A and angle B are supplementary and not congruent","angle A and angle B are vertical and complementary","angle A and angle B are vertical and supplementary","angle A and angle B are adjacent and congruent","angle A and angle B are adjacent and complementary","angle A and angle B are adjacent and supplementary","angle A and angle B are neither vertical nor adjacent"];
-            var card3 = ["the figure contains another angle, C, which is congruent to angle A.","the figure contains another angle, C, which is not congruent to angle A.","the figure contains another angle, C, which is congruent to angle B.","the figure contains another angle, C, which is not congruent to angle B.","the figure contains another angle, C, which is supplementary to angle A.","the figure contains another angle, C, which is not supplementary to angle A.","the figure contains another angle, C, which is supplementary to angle B.","the figure contains another angle, C, which is not supplementary to angle B.","the figure contains another angle, C, which is complementary to angle A.","the figure contains another angle, C, which is not complementary to angle A.","the figure contains another angle, C, which is complementary to angle B.","the figure contains another angle, C, which is not complementary to angle B.","the figure contains another angle, C, which is vertical to angle A.","the figure contains another angle, C, which is not vertical to angle A.","the figure contains another angle, C, which is vertical to angle B.","the figure contains another angle, C, which is not vertical to angle B.","the figure contains another angle, C, which is adjacent to angle A.","the figure contains another angle, C, which is not adjacent to angle A.","the figure contains another angle, C, which is adjacent to angle B.","the figure contains another angle, C, which is not adjacent to angle B."];
+            var card2 = ["angle A and angle B are complementary","angle A and angle B are congruent","angle A and angle B are adjacent","angle A and angle B are not complementary","angle A and angle B are supplementary","angle A and angle B are not supplementary","angle A and angle B are congruent and complementary","angle A and angle B are congruent and supplementary","angle A and angle B are complementary and not congruent","angle A and angle B are supplementary and not congruent","angle A and angle B are adjacent and congruent","angle A and angle B are adjacent and complementary","angle A and angle B are adjacent and supplementary"];
+            var card3 = ["the figure contains another angle, C, which is congruent to angle A.","the figure contains another angle, C, which is not congruent to angle A.","the figure contains another angle, C, which is congruent to angle B.","the figure contains another angle, C, which is not congruent to angle B.","the figure contains another angle, C, which is supplementary to angle A.","the figure contains another angle, C, which is not supplementary to angle A.","the figure contains another angle, C, which is supplementary to angle B.","the figure contains another angle, C, which is not supplementary to angle B.","the figure contains another angle, C, which is complementary to angle A.","the figure contains another angle, C, which is not complementary to angle A.","the figure contains another angle, C, which is complementary to angle B.","the figure contains another angle, C, which is not complementary to angle B.","the figure contains another angle, C, which is adjacent to angle A.","the figure contains another angle, C, which is not adjacent to angle A.","the figure contains another angle, C, which is adjacent to angle B.","the figure contains another angle, C, which is not adjacent to angle B."];
             var cards = ["", "", ""];
             var dict1 = ["both", "acute", "right", "obtuse"];
-            var dict2 = ["and", "complementary", "congruent", "vertical", "adjacent", "supplementary"];
+            var dict2 = ["and", "complementary", "congruent", "", "adjacent", "supplementary"];
             var checkbox = document.getElementById("cb");
             var number = document.getElementById("assign");
             var assignBtn = document.getElementById("assignBtn");
@@ -166,11 +176,14 @@
             var problemNum = document.getElementById("problemNum");
             var saveBtn = document.getElementById("save");
             var textArea = document.getElementById("text");
+
+            document.getElementById("assigntxt").innerHTML = "Enter Problem ID (1 - " + card1.length*card2.length*card3.length + ")";
+            number.max = card1.length*card2.length*card3.length;
             function modalText(index) {
                 var title = ["Difficulty Buttons", "\"Impossible\" Checkmark", "Problem ID's and Choosing Problems", "Settings"];
                 var txt = ["This difficulty represents the number of conditions that Euclid gives when you press the button. Easy gives one, medium gives two, and hard gives three.",
                             "Since Euclid's challenges are random, the combination of conditions might result in an impossible task. If this happens click this checkmark to signal that it is impossible",
-                            "If you are playing in a group, a friend might recommend a specific problem. If they give you a problem ID, you can ener it here to play the same problem.", "<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label"];
+                            "If you are playing in a group, a friend might recommend a specific problem. If they give you a problem ID, you can enter it here to play the same problem.", document.getElementById("setting").innerHTML];
                 document.getElementById("exampleModalLabel").innerHTML = title[index];
                 document.getElementById("modal-text").innerHTML = txt[index];
             }
@@ -252,7 +265,7 @@
             }
             function assign() {
                 if (number.value == "") {
-                    problemNum.innerHTML = "Enter a number between 1 - 2148."
+                    problemNum.innerHTML = "Enter a number between 1 - " + card1.length*card2.length*card3.length + ".";
                     return;
                 }
                 if (problemID == parseInt(number.value-1)) {
@@ -510,6 +523,12 @@
             function roll1() {
                 response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
+                var restrictions = document.querySelectorAll(".toggle:checked");
+                for (var i = 0; i < restrictions.length; i++) {
+                    while (s1.indexOf(restrictions[i].dataset.term) != -1) {
+                        var s1 = card1[Math.floor(Math.random()*card1.length)];
+                    }
+                }
                 problemID = card1.indexOf(s1);
                 cards[0] = s1;
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B<br>" + s1.substring(0,s1.length-2) + ".";
@@ -527,6 +546,16 @@
                 response.innerHTML = "";
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 var s2 = card2[Math.floor(Math.random()*card2.length)];
+                var restrictions = document.querySelectorAll(".toggle:checked");
+                for (var i = 0; i < restrictions.length; i++) {
+                    var strings = [s1, s2];
+                    var choices = [card1, card2];
+                    for (var j = 0; j < strings.length; j++) {
+                        while (strings[j].indexOf(restrictions[i].dataset.term) != -1) {
+                            strings[j] = choices[j][Math.floor(Math.random()*choices[j].length)];
+                        }
+                    }
+                }
                 cards[0] = s1;
                 cards[1] = s2;
                 problemID = card1.length + card1.indexOf(s1)*card2.length + card2.indexOf(s2);
@@ -549,6 +578,16 @@
                 var s1 = card1[Math.floor(Math.random()*card1.length)];
                 var s2 = card2[Math.floor(Math.random()*card2.length)];
                 var s3 = card3[Math.floor(Math.random()*card3.length)];
+                var restrictions = document.querySelectorAll(".toggle:checked");
+                for (var i = 0; i < restrictions.length; i++) {
+                    var strings = [s1, s2, s3];
+                    var choices = [card1, card2, card3];
+                    for (var j = 0; j < strings.length; j++) {
+                        while (strings[j].indexOf(restrictions[i].dataset.term) != -1) {
+                            strings[j] = choices[j][Math.floor(Math.random()*choices[j].length)];
+                        }
+                    }
+                }
                 cards[0] = s1;
                 cards[1] = s2;
                 problemID = card1.length + card1.length*card2.length + card1.indexOf(s1)*card2.length*card3.length + card2.indexOf(s2)*card3.length + card3.indexOf(s3);
@@ -584,12 +623,13 @@
                     angles.push(labels[j])
                 }
                 
-                if (check(angles, points)) {
+                /*if (check(angles, points)) {
                     response.innerHTML = "Great job!";
                 }
                 else {
                     response.innerHTML = "Oops! That's not correct. Try another one!";
-                }
+                } */
+                response.innerHTML = "<br>Save your work below to chek if it is correct later!";
                 cards = ["", "", ""];
                 $(".roll").prop("disabled", false);
                 assignBtn.disabled = false;
