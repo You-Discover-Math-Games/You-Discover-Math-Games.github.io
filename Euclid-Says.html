@@ -81,16 +81,19 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <h4 class="modal-title" id="exampleModalLabel">Modal title</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       <p id="modal-text"></p>
                       <div id="setting" style="display: none;">
-                        <h6>Toggle geometry terms</h2>
+                        <h5>Toggle geometry terms</h5>
+                        <h6>Easy Conditions</h6>
                         <label>Acute:</label><label class='switch'><input type='checkbox' class='toggle' data-term='acute' checked><span class='slider round'></span></label><br>
                         <label>Obtuse:</label><label class='switch'><input type='checkbox' class='toggle' data-term='obtuse' checked><span class='slider round'></span></label><br>
                         <label>Right:</label><label class='switch'><input type='checkbox' class='toggle' data-term='right' checked><span class='slider round'></span></label><br>
+                        <hr>
+                        <h6>Medium and Hard Conditions</h6>
                         <label>Congruent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='congruent' checked><span class='slider round'></span></label><br>
                         <label>Complementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='complementary' checked><span class='slider round'></span></label><br>
                         <label>Supplementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='supplementary' checked><span class='slider round'></span></label><br>
@@ -274,10 +277,6 @@
             function assign() {
                 if (number.value == "") {
                     problemNum.innerHTML = "Enter a number between 1 - " + card1.length*card2.length*card3.length + ".";
-                    return;
-                }
-                if (problemID == parseInt(number.value-1)) {
-                    problemNum.innerHTML = "You just did this problem!";
                     return;
                 }
                 response.innerHTML = ""; 
@@ -530,13 +529,22 @@
             }
             function roll1() {
                 response.innerHTML = "";
-                var s1 = card1[Math.floor(Math.random()*card1.length)];
                 var restrictions = document.querySelectorAll(".toggle:not(:checked)");
-                for (var i = 0; i < restrictions.length; i++) {
-                    while (s1.indexOf(restrictions[i].dataset.term) != -1) {
-                        var s1 = card1[Math.floor(Math.random()*card1.length)];
+                var new_cards = [card1];
+                for (var i = 0; i < new_cards.length; i++) {
+                    for (var j = 0; j < restrictions.length; j++) {
+                        new_cards[i] = new_cards[i].filter(function(item) {
+                            return item != restrictions[j].dataset.term;
+                        })
                     }
                 }
+                for (var l = 0; l < new_cards.length; l++) {
+                    if (new_cards[l].length == 0) {
+                        prompt.innerHTML = "The current settings give no possible outputs. Please change them to play the game";
+                        return;
+                    }
+                }
+                var s1 = new_cards[0][Math.floor(Math.random()*new_cards[0].length)];
                 problemID = card1.indexOf(s1);
                 cards[0] = s1;
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B<br>" + s1.substring(0,s1.length-2) + ".";
@@ -552,18 +560,23 @@
             }
             function roll2() {
                 response.innerHTML = "";
-                var s1 = card1[Math.floor(Math.random()*card1.length)];
-                var s2 = card2[Math.floor(Math.random()*card2.length)];
                 var restrictions = document.querySelectorAll(".toggle:not(:checked)");
-                for (var i = 0; i < restrictions.length; i++) {
-                    var strings = [s1, s2];
-                    var choices = [card1, card2];
-                    for (var j = 0; j < strings.length; j++) {
-                        while (strings[j].indexOf(restrictions[i].dataset.term) != -1) {
-                            strings[j] = choices[j][Math.floor(Math.random()*choices[j].length)];
-                        }
+                var new_cards = [card1, card2];
+                for (var i = 0; i < new_cards.length; i++) {
+                    for (var j = 0; j < restrictions.length; j++) {
+                        new_cards[i] = new_cards[i].filter(function(item) {
+                            return item != restrictions[j].dataset.term;
+                        })
                     }
                 }
+                for (var l = 0; l < new_cards.length; l++) {
+                    if (new_cards[l].length == 0) {
+                        prompt.innerHTML = "The current settings give no possible outputs. Please change them to play the game";
+                        return;
+                    }
+                }
+                var s1 = new_cards[0][Math.floor(Math.random()*new_cards[0].length)];
+                var s2 = new_cards[1][Math.floor(Math.random()*new_cards[1].length)];
                 cards[0] = s1;
                 cards[1] = s2;
                 problemID = card1.length + card1.indexOf(s1)*card2.length + card2.indexOf(s2);
@@ -583,19 +596,24 @@
             }
             function roll3() {
                 response.innerHTML = "";
-                var s1 = card1[Math.floor(Math.random()*card1.length)];
-                var s2 = card2[Math.floor(Math.random()*card2.length)];
-                var s3 = card3[Math.floor(Math.random()*card3.length)];
                 var restrictions = document.querySelectorAll(".toggle:not(:checked)");
-                for (var i = 0; i < restrictions.length; i++) {
-                    var strings = [s1, s2, s3];
-                    var choices = [card1, card2, card3];
-                    for (var j = 0; j < strings.length; j++) {
-                        while (strings[j].indexOf(restrictions[i].dataset.term) != -1) {
-                            strings[j] = choices[j][Math.floor(Math.random()*choices[j].length)];
-                        }
+                var new_cards = [card1, card2, card3];
+                for (var i = 0; i < new_cards.length; i++) {
+                    for (var j = 0; j < restrictions.length; j++) {
+                        new_cards[i] = new_cards[i].filter(function(item) {
+                            return item != restrictions[j].dataset.term;
+                        })
                     }
                 }
+                for (var l = 0; l < new_cards.length; l++) {
+                    if (new_cards[l].length == 0) {
+                        prompt.innerHTML = "The current settings give no possible outputs. Please change them to play the game";
+                        return;
+                    }
+                }
+                var s1 = new_cards[0][Math.floor(Math.random()*new_cards[0].length)];
+                var s2 = new_cards[1][Math.floor(Math.random()*new_cards[1].length)];
+                var s3 = new_cards[2][Math.floor(Math.random()*new_cards[2].length)];
                 cards[0] = s1;
                 cards[1] = s2;
                 problemID = card1.length + card1.length*card2.length + card1.indexOf(s1)*card2.length*card3.length + card2.indexOf(s2)*card3.length + card3.indexOf(s3);
