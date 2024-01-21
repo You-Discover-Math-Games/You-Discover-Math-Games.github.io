@@ -88,13 +88,13 @@
                       <p id="modal-text"></p>
                       <div id="setting" style="display: none;">
                         <h6>Toggle geometry terms</h2>
-                        <label>Acute:</label><label class='switch'><input type='checkbox' class='toggle' data-term='acute' checked onclick="this.checked = false"><span class='slider round'></span></label><br>
-                        <label>Obtuse:</label><label class='switch'><input type='checkbox' class='toggle' data-term='obtuse' checked onclick="this.checked = false"><span class='slider round'></span></label><br>
-                        <label>Right:</label><label class='switch'><input type='checkbox' class='toggle' data-term='right' checked onclick="this.checked = false"><span class='slider round'></span></label><br>
-                        <label>Congruent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='congruent' checked onclick="this.checked = false"><span class='slider round'></span></label><br>
-                        <label>Complementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='complementary' checked onclick="this.checked = false"><span class='slider round'></span></label><br>
-                        <label>Supplementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='supplementary' checked onclick="this.checked = false"><span class='slider round'></span></label><br>
-                        <label>Adjacent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='adjacent' checked onclick="this.checked = false"><span class='slider round'></span></label>
+                        <label>Acute:</label><label class='switch'><input type='checkbox' class='toggle' data-term='acute' checked><span class='slider round'></span></label><br>
+                        <label>Obtuse:</label><label class='switch'><input type='checkbox' class='toggle' data-term='obtuse' checked><span class='slider round'></span></label><br>
+                        <label>Right:</label><label class='switch'><input type='checkbox' class='toggle' data-term='right' checked><span class='slider round'></span></label><br>
+                        <label>Congruent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='congruent' checked><span class='slider round'></span></label><br>
+                        <label>Complementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='complementary' checked><span class='slider round'></span></label><br>
+                        <label>Supplementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='supplementary' checked><span class='slider round'></span></label><br>
+                        <label>Adjacent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='adjacent' checked><span class='slider round'></span></label>
                     </div>
                     </div>
                     <div class="modal-footer">
@@ -181,11 +181,13 @@
             number.max = card1.length*card2.length*card3.length;
             function modalText(index) {
                 if (index == -1) {
+                    document.getElementById("modal-text").style.display = "none";
                     document.getElementById("exampleModalLabel").innerHTML = "Settings";
                     document.getElementById("setting").style.display = "block";
                     return;
                 }
                 document.getElementById("setting").style.display = "none";
+                document.getElementById("modal-text").style.display = "block";
                 var title = ["Difficulty Buttons", "\"Impossible\" Checkmark", "Problem ID's and Choosing Problems"];
                 var txt = ["This difficulty represents the number of conditions that Euclid gives when you press the button. Easy gives one, medium gives two, and hard gives three.",
                             "Since Euclid's challenges are random, the combination of conditions might result in an impossible task. If this happens click this checkmark to signal that it is impossible",
