@@ -86,20 +86,34 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <p id="modal-text"></p>
-                      <div id="setting" style="display: none;">
-                        <h5>Toggle geometry terms</h5>
-                        <h6>Easy Conditions</h6>
-                        <label>Acute:</label><label class='switch'><input type='checkbox' class='toggle' data-term='acute' checked><span class='slider round'></span></label><br>
-                        <label>Obtuse:</label><label class='switch'><input type='checkbox' class='toggle' data-term='obtuse' checked><span class='slider round'></span></label><br>
-                        <label>Right:</label><label class='switch'><input type='checkbox' class='toggle' data-term='right' checked><span class='slider round'></span></label><br>
-                        <hr>
-                        <h6>Medium and Hard Conditions</h6>
-                        <label>Congruent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='congruent' checked><span class='slider round'></span></label><br>
-                        <label>Complementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='complementary' checked><span class='slider round'></span></label><br>
-                        <label>Supplementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='supplementary' checked><span class='slider round'></span></label><br>
-                        <label>Adjacent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='adjacent' checked><span class='slider round'></span></label>
-                    </div>
+                        <p id="modal-text"></p>
+                        <div id="setting" style="display: none;">
+                            <h5>Toggle geometry terms</h5>
+                            <h6>Easy Conditions</h6>
+                            <label>Acute:</label><label class='switch'><input type='checkbox' class='toggle' data-term='acute' checked><span class='slider round'></span></label><br>
+                            <label>Obtuse:</label><label class='switch'><input type='checkbox' class='toggle' data-term='obtuse' checked><span class='slider round'></span></label><br>
+                            <label>Right:</label><label class='switch'><input type='checkbox' class='toggle' data-term='right' checked><span class='slider round'></span></label><br>
+                            <hr>
+                            <h6>Medium and Hard Conditions</h6>
+                            <label>Congruent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='congruent' checked><span class='slider round'></span></label><br>
+                            <label>Complementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='complementary' checked><span class='slider round'></span></label><br>
+                            <label>Supplementary:</label><label class='switch'><input type='checkbox' class='toggle' data-term='supplementary' checked><span class='slider round'></span></label><br>
+                            <label>Adjacent:</label><label class='switch'><input type='checkbox' class='toggle' data-term='adjacent' checked><span class='slider round'></span></label>
+                        </div>
+                        <div id="explain" style="display:none;">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Intro</button>
+                                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Drawing</button>
+                                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Labeling</button>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">Placeholder 1</div>
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Placeholder 2</div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Placeholder 3</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
