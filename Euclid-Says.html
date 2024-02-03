@@ -129,7 +129,7 @@
                 <li></li>
             </ul>
             <br>
-            <iframe style="border: 2px black solid;" id="canvas" src="./Desmos.html" width="50%" height="50%"></iframe><svg data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer; margin-left: 7px;" onclick="modalText(-2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path></svg><br>
+            <div id="ggb-element"></div><svg data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer; margin-left: 7px;" onclick="modalText(-2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path></svg><br>
             <br>
             <p id="problemNum"></p><br>
             <div style="display: flex; justify-content: center; align-items: center;">
@@ -174,8 +174,12 @@
             <br>
             <canvas id="SaveDiagram" style="display: none;" width="750" height="750" style="border: 2px black solid;">
             </canvas>
+            <canvas></canvas>
         </center>
         <script>
+            var params = {"appName": "geometry", "width": 800, "height": 600, "showToolBar": true, "showAlgebraInput": true, "showMenuBar": true};
+            var applet = new GGBApplet(params, true);
+            applet.inject('ggb-element');
             var cv = document.getElementById("SaveDiagram");
             var ctx = cv.getContext('2d');
             var prompt = document.getElementById("Prompt");
@@ -198,14 +202,14 @@
             document.getElementById("assigntxt").innerHTML = "Enter Problem ID (1 - " + card1.length*card2.length*card3.length + "): ";
             number.max = card1.length*card2.length*card3.length;
             function modalText(index) {
-                if (index == -1) {
+                if (index === -1) {
                     document.getElementById("modal-text").style.display = "none";
                     document.getElementById("explain").style.display = "none";
                     document.getElementById("exampleModalLabel").innerHTML = "Settings";
                     document.getElementById("setting").style.display = "block";
                     return;
                 }
-                if (index == -2) {
+                if (index === -2) {
                     document.getElementById("modal-text").style.display = "none";
                     document.getElementById("setting").style.display = "none";
                     document.getElementById("exampleModalLabel").innerHTML = "Desmos Geometry Tool";
@@ -222,14 +226,13 @@
                 document.getElementById("modal-text").innerHTML = txt[index];
             }
             function save() {
-                if (textArea.value == "" && !confirm("It looks like the Explanation box is blank. Would you still like to submit?")) {
-                    return;
-                }
-                // Select the element that you want to capture
-                const captureElement = document.getElementById("canvas").contentDocument.querySelectorAll(".dcg-grapher")[1];
-                html2canvas(captureElement).then((canvas) => {
-                    // Get the image data as a base64-encoded string
-                    
+                ggbApplet.getScreenshotBase64(function (url) {
+                    if (textArea.value === "" && !confirm("It looks like the Explanation box is blank. Would you still like to submit?")) {
+                        return;
+                    }
+                        // Get the image data as a base64-encoded string
+                    canvas = new Image(400, 300);
+                    canvas.src = "data:image/png;base64, " + url;
                     ctx.font = "30px Arial";
                     ctx.textAlign = "center";
                     var lines = fragmentText(prompt.innerHTML.replace("<br>", " "), 750 - parseInt(30,0));
@@ -301,7 +304,7 @@
                 return lines;
             }
             function assign() {
-                if (number.value == "") {
+                if (number.value === "") {
                     problemNum.innerHTML = "Enter a number between 1 - " + card1.length*card2.length*card3.length + ".";
                     return;
                 }
@@ -343,7 +346,7 @@
                 problemNum.innerHTML = "Problem ID: " + (problemID + 1);
             }
             function impossible() {
-                var iframe = document.getElementById("canvas");
+                var iframe = document.getElementById("ggb=element");
                 if (checkbox.checked) {
                     iframe.style.filter = "brightness(50%)";
                     iframe.style.pointerEvents = "none";
@@ -359,10 +362,10 @@
                 var overall_success = false;
                 for (var k = 0; k < dict1.length; k++) {
                     if (cards[0].indexOf(dict1[k]) != -1) {
-                        if (k == 0) {
+                        if (k === 0) {
                             both = true;
                         }
-                        else if (k == 1) {
+                        else if (k === 1) {
                             if (both) {
                                 if (parseFloat(angles[points.indexOf("A")]) < 90 && parseFloat(angles[points.indexOf("B")]) < 90) {
                                     success1 = "AB";
@@ -370,7 +373,7 @@
                                 }
                             } 
                             else {
-                                if (success1 == "") {
+                                if (success1 === "") {
                                     if (parseFloat(angles[points.indexOf("A")]) < 90) {
                                         success1 = "B";
                                     }
@@ -386,31 +389,31 @@
                                 }
                             }
                         }
-                        else if (k == 2) {
+                        else if (k === 2) {
                             if (both) {
-                                if (parseFloat(angles[points.indexOf("A")]) == 90 && parseFloat(angles[points.indexOf("B")]) == 90) {
+                                if (parseFloat(angles[points.indexOf("A")]) === 90 && parseFloat(angles[points.indexOf("B")]) === 90) {
                                     success1 = "AB";
                                     break;
                                 }
                             } 
                             else {
-                                if (success1 == "") {
-                                    if (parseFloat(angles[points.indexOf("A")]) == 90) {
+                                if (success1 === "") {
+                                    if (parseFloat(angles[points.indexOf("A")]) === 90) {
                                         success1 = "B";
                                     }
-                                    else if (parseFloat(angles[points.indexOf("B")]) == 90) {
+                                    else if (parseFloat(angles[points.indexOf("B")]) === 90) {
                                         success1 = "A";
                                     }
                                 }
                                 else {
-                                    if (parseFloat(angles[points.indexOf(success1)]) == 90) {
+                                    if (parseFloat(angles[points.indexOf(success1)]) === 90) {
                                         success1 = "AB";
                                         break;
                                     }
                                 }
                             }
                         }
-                        else if (k == 3) {
+                        else if (k === 3) {
                             if (both) {
                                 if (parseFloat(angles[points.indexOf("A")]) > 90 && parseFloat(angles[points.indexOf("B")]) > 90) {
                                     success1 = "AB";
@@ -418,7 +421,7 @@
                                 }
                             } 
                             else {
-                                if (success1 == "") {
+                                if (success1 === "") {
                                     if (parseFloat(angles[points.indexOf("A")]) > 90) {
                                         success1 = "B";
                                     }
@@ -436,7 +439,7 @@
                         }
                     }
                 }
-                if (success1 == "AB") {
+                if (success1 === "AB") {
                     overall_success = true;
                 }
                 if (cards[1] != "" && overall_success) {
@@ -447,7 +450,7 @@
                     var and_condition = true;
                     for (var k = 0; k < dict2.length; k++) {
                         if (cards[1].indexOf(dict2[k], 15) != -1) {
-                            if (k == 0) {
+                            if (k === 0) {
                                 if (cards[1][cards[1].indexOf("and") - 1] != "n") {
                                     var conditions = [cards[1].substring(24, cards[1].indexOf("and", 15)-1), cards[1].substring(cards[1].indexOf("and", 15) + 4)];
                                     for (var i = 0; i < 2; i++) {
@@ -465,77 +468,77 @@
                                 }
                                 and_value = 0;
                             }
-                            if (k == 1 || (and_value >= 0 && and[and_value][0] == 1)) {
+                            if (k === 1 || (and_value >= 0 && and[and_value][0] === 1)) {
                                 if (and_value < 0) {
                                     if (cards[1].indexOf("not " + dict2[k]) != -1) {
-                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 90);
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) === 90);
                                     }
                                     else {
-                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 90);
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) === 90);
                                     }
                                     break;
                                 }
                                 else {
-                                    and_condition = and_condition && ((parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 90) == and[and_value][1]);
+                                    and_condition = and_condition && ((parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) === 90) === and[and_value][1]);
                                     and_value += 1;
-                                    if (and_value == 2) {
+                                    if (and_value === 2) {
                                         success2 = and_condition;
                                         break;
                                     }
                                 }
                             }
-                            if (k == 2 || (and_value >= 0 && and[and_value][0] == 2)) {
+                            if (k === 2 || (and_value >= 0 && and[and_value][0] === 2)) {
                                 if (and_value < 0) {
                                     if (cards[1].indexOf("not " + dict2[k]) != -1) {
                                         success2 = (parseFloat(angles[points.indexOf("A")]) != parseFloat(angles[points.indexOf("A")]));
                                     }
                                     else {
-                                        success2 = (parseFloat(angles[points.indexOf("A")]) == parseFloat(angles[points.indexOf("A")]));
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) === parseFloat(angles[points.indexOf("A")]));
                                     }
                                     break;
                                 }
                                 else {
-                                    and_condition = and_condition && ((parseFloat(angles[points.indexOf("A")]) == parseFloat(angles[points.indexOf("A")])) == and[and_value][1]);
+                                    and_condition = and_condition && ((parseFloat(angles[points.indexOf("A")]) === parseFloat(angles[points.indexOf("A")])) === and[and_value][1]);
                                     and_value += 1;
-                                    if (and_value == 2) {
+                                    if (and_value === 2) {
                                         success2 = and_condition;
                                         break;
                                     }
                                 }
                             }
-                            if (k == 4 || (and_value >= 0 && and[and_value][0] == 4)) {
+                            if (k === 4 || (and_value >= 0 && and[and_value][0] === 4)) {
                                 if (and_value < 0) {
                                     if (cards[1].indexOf("not " + dict2[k]) != -1) {
                                         success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) != 1 && Math.abs(points.indexOf("A") - points.indexOf("B")) != points.length - 1) ;
                                     }
                                     else {
-                                        success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) == 1 || Math.abs(points.indexOf("A") - points.indexOf("B")) == points.length - 1) ;
+                                        success2 = (Math.abs(points.indexOf("A") - points.indexOf("B")) === 1 || Math.abs(points.indexOf("A") - points.indexOf("B")) === points.length - 1) ;
                                     }
                                     break;
                                 }
                                 else {
-                                    and_condition = and_condition && ((Math.abs(points.indexOf("A") - points.indexOf("B")) == 1 || Math.abs(points.indexOf("A") - points.indexOf("B")) == points.length - 1) == and[and_value][1]);
+                                    and_condition = and_condition && ((Math.abs(points.indexOf("A") - points.indexOf("B")) === 1 || Math.abs(points.indexOf("A") - points.indexOf("B")) === points.length - 1) === and[and_value][1]);
                                     and_value += 1;
-                                    if (and_value == 2) {
+                                    if (and_value === 2) {
                                         success2 = and_condition;
                                         break;
                                     }
                                 }
                             }
-                            if (k == 5 || (and_value >= 0 && and[and_value][0] == 5)) {
+                            if (k === 5 || (and_value >= 0 && and[and_value][0] === 5)) {
                                 if (and_value < 0) {
                                     if (cards[1].indexOf("not " + dict2[k]) != -1) {
                                         success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) != 180);
                                     }
                                     else {
-                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 180);
+                                        success2 = (parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) === 180);
                                     }
                                     break;
                                 }
                                 else {
-                                    and_condition = and_condition && ((parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) == 180) == and[and_value][1]);
+                                    and_condition = and_condition && ((parseFloat(angles[points.indexOf("A")]) + parseFloat(angles[points.indexOf("A")]) === 180) === and[and_value][1]);
                                     and_value += 1;
-                                    if (and_value == 2) {
+                                    if (and_value === 2) {
                                         success2 = and_condition;
                                         break;
                                     }
@@ -560,12 +563,12 @@
                 for (var i = 0; i < new_cards.length; i++) {
                     for (var j = 0; j < restrictions.length; j++) {
                         new_cards[i] = new_cards[i].filter(function(item) {
-                            return item.indexOf(restrictions[j].dataset.term) == -1;
+                            return item.indexOf(restrictions[j].dataset.term) === -1;
                         })
                     }
                 }
                 for (var l = 0; l < new_cards.length; l++) {
-                    if (new_cards[l].length == 0) {
+                    if (new_cards[l].length === 0) {
                         prompt.innerHTML = "The current settings give no possible outputs. Please change them to play the game.";
                         return;
                     }
@@ -591,12 +594,12 @@
                 for (var i = 0; i < new_cards.length; i++) {
                     for (var j = 0; j < restrictions.length; j++) {
                         new_cards[i] = new_cards[i].filter(function(item) {
-                            return item.indexOf(restrictions[j].dataset.term) == -1;
+                            return item.indexOf(restrictions[j].dataset.term) === -1;
                         })
                     }
                 }
                 for (var l = 0; l < new_cards.length; l++) {
-                    if (new_cards[l].length == 0) {
+                    if (new_cards[l].length === 0) {
                         prompt.innerHTML = "The current settings give no possible outputs. Please change them to play the game.";
                         return;
                     }
@@ -627,12 +630,12 @@
                 for (var i = 0; i < new_cards.length; i++) {
                     for (var j = 0; j < restrictions.length; j++) {
                         new_cards[i] = new_cards[i].filter(function(item) {
-                            return item.indexOf(restrictions[j].dataset.term) == -1;
+                            return item.indexOf(restrictions[j].dataset.term) === -1;
                         })
                     }
                 }
                 for (var l = 0; l < new_cards.length; l++) {
-                    if (new_cards[l].length == 0) {
+                    if (new_cards[l].length === 0) {
                         prompt.innerHTML = "The current settings give no possible outputs. Please change them to play the game.";
                         return;
                     }
@@ -659,7 +662,7 @@
                 saveBtn.style.filter = "brightness(75%)";
             }
             function submit() {
-                var canvas = document.getElementById("canvas").contentDocument;
+                /* var canvas = document.getElementById("canvas").contentDocument;
                 var text = canvas.querySelectorAll(".dcg-label-raw-text");
                 var labels = []
                 for (var i = 0; i < text.length; i++) {
@@ -668,14 +671,14 @@
                 var points = [];
                 var angles = [];
                 for (var j = 0; j < labels.length; j++) {
-                    if (labels[j].indexOf("°") == -1) {
+                    if (labels[j].indexOf("°") === -1) {
                         points.push(labels[j]);
                         continue;
                     }
                     angles.push(labels[j])
                 }
                 
-                /*if (check(angles, points)) {
+                if (check(angles, points)) {
                     response.innerHTML = "Great job!";
                 }
                 else {
