@@ -222,6 +222,9 @@
                 document.getElementById("modal-text").innerHTML = txt[index];
             }
             function save() {
+                if (textArea.value == "" && !confirm("It looks like the Explanation box is blank. Would you still like to submit?")) {
+                    return;
+                }
                 // Select the element that you want to capture
                 const captureElement = document.getElementById("canvas").contentDocument.querySelectorAll(".dcg-grapher")[1];
                 html2canvas(captureElement).then((canvas) => {
