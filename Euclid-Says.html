@@ -232,7 +232,7 @@
                         // Get the image data as a base64-encoded string
                     canvas = new Image(400, 300);
                     canvas.src = "data:image/png;base64, " + url;
-                    ctx.font = "30px Arial";
+                    /*ctx.font = "30px Arial";
                     ctx.textAlign = "center";
                     var lines = fragmentText(prompt.innerHTML.replace("<br>", " "), 750 - parseInt(30,0));
                     lines.forEach(function(line, i) {
@@ -257,7 +257,8 @@
                     ctx.globalCompositeOperation = 'destination-over'
                     ctx.fillRect(0,0,cv.width,cv.height);
 
-
+*/
+                    ctx.drawImage(canvas, 375 - canvas.width/2, 375 - canvas.height/2);
                     const imageData = cv.toDataURL("image/png");
                     // Do something with the image data, such as saving it as a file or sending it to a server
                     // For example, you can create an anchor element and trigger a download action
