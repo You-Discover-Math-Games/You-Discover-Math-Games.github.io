@@ -227,52 +227,50 @@
                 document.getElementById("modal-text").innerHTML = txt[index];
             }
             function save() {
-                ggbApplet.getScreenshotBase64(function (url) {
-                    
-                        // Get the image data as a base64-encoded string
-                    canvas = new Image(400, 300);
-                    canvas.src = "data:image/png;base64, " + url;
-                    /*ctx.font = "30px Arial";
-                    ctx.textAlign = "center";
-                    var lines = fragmentText(prompt.innerHTML.replace("<br>", " "), 750 - parseInt(30,0));
-                    lines.forEach(function(line, i) {
-                        ctx.fillText(line, 750 / 2, (i + 1) * parseInt(30,0));
-                    });
-
-                    ctx.font = "24px Arial";
-                    var lines = fragmentText(textArea.value, 750 - parseInt(24,0));
-                    lines.forEach(function(line, i) {
-                        ctx.fillText(line, 750 / 2, (i + 27) * parseInt(24,0));
-                    });
-                    ctx.fillText("Explanation:", 750 / 2, 26 * parseInt(24,0));
-
-                    if (checkbox.checked) {
-                        ctx.font = "40px Arial";
-                        ctx.fillText("IMPOSSIBLE", 375, 375);
-                    }
-                    else {
-                        ctx.drawImage(canvas, 375 - canvas.width/2, 375 - canvas.height/2);
-                    }
-                    ctx.fillStyle = "#fff";
-                    ctx.globalCompositeOperation = 'destination-over'
-                    ctx.fillRect(0,0,cv.width,cv.height);
-
-*/
-                    ctx.drawImage(canvas, 375 - canvas.width/2, 375 - canvas.height/2);
-                    const imageData = cv.toDataURL("image/png");
-                    // Do something with the image data, such as saving it as a file or sending it to a server
-                    // For example, you can create an anchor element and trigger a download action
-                    const link = document.createElement("a");
-                    link.setAttribute("download", "Problem " + (problemID + 1) + " Solution.png");
-                    link.setAttribute("href", imageData);
-                    link.click();
-
-                    ctx.clearRect(0, 0,cv.width, cv.height);
-                    ctx.fillStyle = "#000";
-                    ctx.globalCompositeOperation = 'source-over';
-                    saveBtn.disabled = true;
-                    saveBtn.style.filter = "brightness(75%)";
+                
+                var url = ggbApplet.getPNGBase64(0.5, false, undefined);
+                // Get the image data as a base64-encoded string
+                canvas = new Image(400, 300);
+                canvas.src = "data:image/png;base64, " + url;
+                ctx.font = "30px Arial";
+                ctx.textAlign = "center";
+                var lines = fragmentText(prompt.innerHTML.replace("<br>", " "), 750 - parseInt(30,0));
+                lines.forEach(function(line, i) {
+                    ctx.fillText(line, 750 / 2, (i + 1) * parseInt(30,0));
                 });
+
+                ctx.font = "24px Arial";
+                var lines = fragmentText(textArea.value, 750 - parseInt(24,0));
+                lines.forEach(function(line, i) {
+                    ctx.fillText(line, 750 / 2, (i + 27) * parseInt(24,0));
+                });
+                ctx.fillText("Explanation:", 750 / 2, 26 * parseInt(24,0));
+
+                if (checkbox.checked) {
+                    ctx.font = "40px Arial";
+                    ctx.fillText("IMPOSSIBLE", 375, 375);
+                }
+                else {
+                    ctx.drawImage(canvas, 375 - canvas.width/2, 375 - canvas.height/2);
+                }
+                ctx.fillStyle = "#fff";
+                ctx.globalCompositeOperation = 'destination-over'
+                ctx.fillRect(0,0,cv.width,cv.height);
+
+                ctx.drawImage(canvas, 375 - canvas.width/2, 375 - canvas.height/2);
+                const imageData = cv.toDataURL("image/png");
+                // Do something with the image data, such as saving it as a file or sending it to a server
+                // For example, you can create an anchor element and trigger a download action
+                const link = document.createElement("a");
+                link.setAttribute("download", "Problem " + (problemID + 1) + " Solution.png");
+                link.setAttribute("href", imageData);
+                link.click();
+
+                ctx.clearRect(0, 0,cv.width, cv.height);
+                ctx.fillStyle = "#000";
+                ctx.globalCompositeOperation = 'source-over';
+                saveBtn.disabled = true;
+                saveBtn.style.filter = "brightness(75%)";
             }
             function fragmentText(text, maxWidth) {
                 var words = text.split(' '),
