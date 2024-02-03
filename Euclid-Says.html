@@ -228,9 +228,7 @@
             }
             function save() {
                 ggbApplet.getScreenshotBase64(function (url) {
-                    if (textArea.value === "" && !confirm("It looks like the Explanation box is blank. Would you still like to submit?")) {
-                        return;
-                    }
+                    
                         // Get the image data as a base64-encoded string
                     canvas = new Image(400, 300);
                     canvas.src = "data:image/png;base64, " + url;
@@ -663,6 +661,9 @@
                 saveBtn.style.filter = "brightness(75%)";
             }
             function submit() {
+                if (textArea.value === "" && !confirm("It looks like the Explanation box is blank. Would you still like to submit?")) {
+                        return;
+                    }
                 /* var canvas = document.getElementById("canvas").contentDocument;
                 var text = canvas.querySelectorAll(".dcg-label-raw-text");
                 var labels = []
