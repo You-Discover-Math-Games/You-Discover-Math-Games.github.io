@@ -227,7 +227,7 @@
             }
             function save() {
                 
-                var url = ggbApplet.getPNGBase64(0.5, false, undefined);
+                var url = ggbApplet.getPNGBase64(1, false, undefined);
                 // Get the image data as a base64-encoded string
                 canvas = new Image(400, 300);
                 canvas.onload = cont;
@@ -273,7 +273,7 @@
                     saveBtn.disabled = true;
                     saveBtn.style.filter = "brightness(75%)";
                 }
-                
+
             }
             function fragmentText(text, maxWidth) {
                 var words = text.split(' '),
