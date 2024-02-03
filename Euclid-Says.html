@@ -227,9 +227,9 @@
             }
             function save() {
                 
-                var url = ggbApplet.getPNGBase64(1, false, undefined);
+                var url = ggbApplet.getPNGBase64(1, true, undefined);
                 // Get the image data as a base64-encoded string
-                canvas = new Image(400, 300);
+                canvas = new Image();
                 canvas.onload = cont;
                 canvas.src = "data:image/png;base64, " + url;
                 function cont() {
