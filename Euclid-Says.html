@@ -104,15 +104,45 @@
                         <div id="explain" style="display:none;">
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Intro</button>
-                                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Drawing</button>
-                                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Labeling</button>
+                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Introduction</button>
+                                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Basics</button>
+                                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Advanced</button>
                                 </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">Placeholder 1</div>
-                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Placeholder 2</div>
-                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Placeholder 3</div>
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><br>What is Geogebra? Geogebra is a powerful drawing tool that allows users to create amazing and detailed diagrams online.<br><br>While it takes a little while to get used to it, it is a great tool for learning geometry. This is a quick and easy tutorial to get started using Geogebra in Euclid Says. This game only uses a few functions, but feel free to use this canvas to explore different ones such as Area, Compass, and more!</div>
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><br>The functions you'll need for this game are listed below:<br><br>
+                                    <strong>Point</strong> - This tool allows you to create points as well as label them. Geogebra will automatically label your points starting from A although you can always change it as shown in this gif.
+                                    <br>
+                                    <br>
+                                    <img src="Point Label.gif" width="100%">
+                                    <br>
+                                    <br>
+                                    <strong>Line Segment</strong> - This tool is used to create line segments, which are the basis of angles. If you need to move the points of a line segment after you have created it, select "Move" and drag the points wherever you want.
+                                    <br>
+                                    <br>
+                                    <img src="Line Segments.gif" width="100%">
+                                    <br>
+                                    <br>
+                                    <strong>Angle</strong> - Obviously this tool is important as the entire game is based around angles. This tool isn't on the main menu, so you'll have to click "More" and scroll down to find it. When you have the tool selected, you can click wither 3 points or 2 line segments to create an angle. While most of the time you'll have one angle per point, sometimes you might have two different angles. In this case, you would need to label the angle itself to differentiate it from the other angle.
+                                    <br>
+                                    <br>
+                                    <img src="Angle.gif" width="100%">
+                                </div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><br>Here are some more advanced tools that will make drawing diagrams eaiser:
+                                    <br>
+                                    <br>
+                                    <strong>Perpendicular Line</strong> - This tool will help you create right angles much eaiser than trying for a long time to ge the angle exact. it will save you much time and is definitely a useful skill to know.
+                                    <br>
+                                    <br>
+                                    <img src="Perpendicular.gif" width="100%">
+                                    <br>
+                                    <br>
+                                    <strong>Polygon</strong> - When creating multiple angles, this tool will be very useful. You can create a polygon by tapping the each vertex and then the starting point again. Now you can click the angle function on the entire polygon and all the angles will be labeled.
+                                    <br>
+                                    <br>
+                                    <img src="Polygon.gif" width="100%">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -130,7 +160,8 @@
                 <li></li>
             </ul>
             <br>
-            <div id="ggb-element"></div><svg data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer; margin-left: 7px;" onclick="modalText(-2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path></svg><br>
+            <div id="ggb-element" style="width: 50%; height: 70%; display: inline-block;"></div>
+            <svg data-bs-toggle="modal" data-bs-target="#exampleModal" style="transform: translate(0%, -25%); cursor: pointer; margin-left: 7px;" onclick="modalText(-2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path></svg><br>
             <br>
             <p id="problemNum"></p><br>
             <div style="display: flex; justify-content: center; align-items: center;">
@@ -147,7 +178,7 @@
             <br>
             <div style="display: flex; justify-content: center; align-items: center;">
                 <div style="margin-right: 5px;">
-                    <input id="cb" type="checkbox" onclick="impossible()">
+                    <input id="cb" type="checkbox" onclick="impossible()" style="transform: scale(1.2);">
                     <label onclick="impossible()" style="margin: 0 0;">Impossible</label>
                 </div>
                 <div style="margin-left: 5px;">
@@ -201,6 +232,7 @@
 
             document.getElementById("assigntxt").innerHTML = "Enter Problem ID (1 - " + card1.length*card2.length*card3.length + "): ";
             number.max = card1.length*card2.length*card3.length;
+
             function modalText(index) {
                 if (index === -1) {
                     document.getElementById("modal-text").style.display = "none";
@@ -212,7 +244,7 @@
                 if (index === -2) {
                     document.getElementById("modal-text").style.display = "none";
                     document.getElementById("setting").style.display = "none";
-                    document.getElementById("exampleModalLabel").innerHTML = "Desmos Geometry Tool";
+                    document.getElementById("exampleModalLabel").innerHTML = "Geogebra Geometry Tool";
                     document.getElementById("explain").style.display = "block";
                     return;
                 }
@@ -688,7 +720,7 @@
                 else {
                     response.innerHTML = "Oops! That's not correct. Try another one!";
                 } */
-                response.innerHTML = "<br>Save your work below to check if it is correct later!";
+                response.innerHTML = "<br>Autograding coming soon! For now, save your work below to check if it is correct later!";
                 cards = ["", "", ""];
                 $(".roll").prop("disabled", false);
                 assignBtn.disabled = false;
