@@ -542,6 +542,7 @@
                 if (textArea.value === "" && !confirm("It looks like the Explanation box is blank. Would you still like to submit?")) {
                     return;
                 }
+                console.log(ggbApplet.getValue(ggbApplet.evalCommandGetLabels("Solve(x^2 = 4x)")));
                 names = ggbApplet.getAllObjectNames(["angle"]);
                 captions = [];
                 values = [];
@@ -570,7 +571,7 @@
                     response.innerHTML = "<br>Diagram is missing angle(s) " + ((cards[2] === "") ? ABCexists.replace("C", "") : ABCexists) + ".";
                     return;
                 }
-                if (cards[1] === "") {
+                /* if (cards[1] === "") {
                     if (check1(values, captions)) {
                         response.innerHTML = "<br>Great job!";
                     }
@@ -581,9 +582,9 @@
                         return;
                     }
                 }
-                else {
-                    response.innerHTML = "<br>Autograding coming soon! For now, save your work below to check if it is correct later!";
-                }
+                else { */
+                response.innerHTML = "<br>Autograding coming soon! For now, save your work below to check if it is correct later!";
+                // }
 
                 cards = ["", "", ""];
                 $(".roll").prop("disabled", false);
