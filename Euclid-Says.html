@@ -215,8 +215,8 @@
             var prompt = document.getElementById("Prompt");
             var sub = document.getElementById("sub");
             var response = document.getElementById("response");
-            var card1 = ["one of which is acute and the other of which is right, ", "one of which is acute and the other of which is obtuse, ","one of which is right and the other of which is obtuse, ","both of which are acute, ","both of which are right, ","both of which are obtuse, "];
-            var card2 = ["angle A and angle B are complementary","angle A and angle B are congruent","angle A and angle B are adjacent","angle A and angle B are not complementary","angle A and angle B are supplementary","angle A and angle B are not supplementary","angle A and angle B are congruent and complementary","angle A and angle B are congruent and supplementary","angle A and angle B are complementary and not congruent","angle A and angle B are supplementary and not congruent","angle A and angle B are adjacent and congruent","angle A and angle B are adjacent and complementary","angle A and angle B are adjacent and supplementary"];
+            var card1 = ["one of which is acute and the other of which is right, ", "one of which is acute and the other of which is obtuse, ","one of which is right and the other of which is obtuse, ","both of which are acute, ","both of which are obtuse, "];
+            var card2 = ["angle A and angle B are complementary","angle A and angle B are congruent","angle A and angle B are adjacent","angle A and angle B are not complementary","angle A and angle B are supplementary","angle A and angle B are not supplementary","angle A and angle B are congruent and complementary","angle A and angle B are complementary and not congruent","angle A and angle B are supplementary and not congruent","angle A and angle B are adjacent and congruent","angle A and angle B are adjacent and complementary","angle A and angle B are adjacent and supplementary"];
             var card3 = ["the figure contains another angle, C, which is congruent to angle A.","the figure contains another angle, C, which is not congruent to angle A.","the figure contains another angle, C, which is congruent to angle B.","the figure contains another angle, C, which is not congruent to angle B.","the figure contains another angle, C, which is supplementary to angle A.","the figure contains another angle, C, which is not supplementary to angle A.","the figure contains another angle, C, which is supplementary to angle B.","the figure contains another angle, C, which is not supplementary to angle B.","the figure contains another angle, C, which is complementary to angle A.","the figure contains another angle, C, which is not complementary to angle A.","the figure contains another angle, C, which is complementary to angle B.","the figure contains another angle, C, which is not complementary to angle B.","the figure contains another angle, C, which is adjacent to angle A.","the figure contains another angle, C, which is not adjacent to angle A.","the figure contains another angle, C, which is adjacent to angle B.","the figure contains another angle, C, which is not adjacent to angle B."];
             var cards = ["", "", ""];
             var dict1 = ["both", "acute", "right", "obtuse"];
@@ -229,8 +229,8 @@
             var saveBtn = document.getElementById("save");
             var textArea = document.getElementById("text");
 
-            document.getElementById("assigntxt").innerHTML = "Enter Problem ID (1 - " + card1.length*card2.length*card3.length + "): ";
-            number.max = card1.length*card2.length*card3.length;
+            document.getElementById("assigntxt").innerHTML = "Enter Problem ID (1 - " + (card2.length*card3.length + card1.length*card2.length + card1.length) + "): ";
+            number.max = card2.length*card3.length + card1.length*card2.length + card1.length;
 
             function modalText(index) {
                 if (index === -1) {
@@ -338,37 +338,34 @@
             }
             function assign() {
                 if (number.value === "") {
-                    problemNum.innerHTML = "Enter a number between 1 - " + card1.length*card2.length*card3.length + ".";
+                    problemNum.innerHTML = "Enter a number between 1 - " + (card2.length*card3.length + card1.length*card2.length + card1.length) + ".";
                     return;
                 }
                 response.innerHTML = ""; 
                 problemID = parseInt(number.value - 1);
+                if (problemID < 0 || problemID >= card2.length*card3.length + card1.length*card2.length + card1.length) {
+                    problemNum.innerHTML = "Enter a number between 1 - " + (card2.length*card3.length + card1.length*card2.length + card1.length) + ".";
+                    return;
+                }
                 if (problemID < card1.length) {
                     var s1 = card1[problemID];
                     cards[0] = s1;
                     prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1.substring(0,s1.length-2) + ".";
                 }
-                else if (problemID < card1.length + (card1.length - 1)*card2.length + card2.length) {
+                else if (problemID < card1.length + card1.length*card2.length) {
                     var s1 = card1[Math.floor((problemID - card1.length)/card2.length)];
                     var s2 = card2[(problemID - card1.length)%card2.length];
                     cards[0] = s1;
                     cards[1] = s2;
-                    if (s2.indexOf("nor") != -1) {
-                        cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
-                    }
                     prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + " such that " + s2 + ".";
                 }
                 else {
-                    var s1 = card1[Math.floor((problemID - card1.length*card2.length-card1.length)/(card2.length*card3.length))];
-                    var s2 = card2[Math.floor((problemID - card1.length*card2.length-card1.length)/card3.length)%card2.length];
+                    var s2 = card2[Math.floor((problemID - card1.length*card2.length-card1.length)/card3.length)];
                     var s3 = card3[(problemID - card1.length*card2.length-card1.length)%card3.length];
-                    cards[0] = s1;
                     cards[1] = s2;
-                    if (s2.indexOf("nor") != -1) {
-                        cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
-                    }
                     cards[2] = s3;
-                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + " such that " + s2 + " and such that " + s3;
+
+                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B such that " + s2 + " and such that " + s3;
                 }
                 sub.disabled = false;
                 sub.style.filter = "brightness(100%)";
@@ -486,9 +483,6 @@
                 cards[0] = s1;
                 cards[1] = s2;
                 problemID = card1.length + card1.indexOf(s1)*card2.length + card2.indexOf(s2);
-                if (s2.indexOf("nor") != -1) {
-                    cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
-                }
                 prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + " such that " + s2 + ".";
                 sub.disabled = false;
                 sub.style.filter = "brightness(100%)";
@@ -503,7 +497,7 @@
             function roll3() {
                 response.innerHTML = "";
                 var restrictions = document.querySelectorAll(".toggle:not(:checked)");
-                var new_cards = [card1, card2, card3];
+                var new_cards = [card2, card3];
                 for (var i = 0; i < new_cards.length; i++) {
                     for (var j = 0; j < restrictions.length; j++) {
                         new_cards[i] = new_cards[i].filter(function(item) {
@@ -517,17 +511,13 @@
                         return;
                     }
                 }
-                var s1 = new_cards[0][Math.floor(Math.random()*new_cards[0].length)];
-                var s2 = new_cards[1][Math.floor(Math.random()*new_cards[1].length)];
-                var s3 = new_cards[2][Math.floor(Math.random()*new_cards[2].length)];
-                cards[0] = s1;
+                var s2 = new_cards[0][Math.floor(Math.random()*new_cards[0].length)];
+                var s3 = new_cards[1][Math.floor(Math.random()*new_cards[1].length)];
                 cards[1] = s2;
-                problemID = card1.length + card1.length*card2.length + card1.indexOf(s1)*card2.length*card3.length + card2.indexOf(s2)*card3.length + card3.indexOf(s3);
-                if (s2.indexOf("nor") != -1) {
-                    cards[1] = s2.substring(0, s2.indexOf("nor")) + "nand" + s2.substring(s2.indexOf("nor")+3);
-                }
                 cards[2] = s3;
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + " such that " + s2 + " and such that " + s3;
+                problemID = card1.length + card1.length*card2.length + card2.indexOf(s2)*card3.length + card3.indexOf(s3);
+                cards[2] = s3;
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B such that " + s2 + " and such that " + s3;
                 sub.disabled = false;
                 sub.style.filter = "brightness(100%)";
                 checkbox.checked = false;
