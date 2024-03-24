@@ -229,8 +229,8 @@
             var saveBtn = document.getElementById("save");
             var textArea = document.getElementById("text");
 
-            document.getElementById("assigntxt").innerHTML = "Enter Problem ID (1 - " + (card2.length*card3.length + card1.length*card2.length + card1.length) + "): ";
-            number.max = card2.length*card3.length + card1.length*card2.length + card1.length;
+            document.getElementById("assigntxt").innerHTML = "Enter Problem ID (1 - " + (card1.length*card2.length*card3.length + card1.length*card2.length + card1.length) + "): ";
+            number.max = card1.length*card2.length*card3.length + card1.length*card2.length + card1.length;
 
             function modalText(index) {
                 if (index === -1) {
@@ -338,13 +338,13 @@
             }
             function assign() {
                 if (number.value === "") {
-                    problemNum.innerHTML = "Enter a number between 1 - " + (card2.length*card3.length + card1.length*card2.length + card1.length) + ".";
+                    problemNum.innerHTML = "Enter a number between 1 - " + (card1.length*card2.length*card3.length + card1.length*card2.length + card1.length) + ".";
                     return;
                 }
                 response.innerHTML = ""; 
                 problemID = parseInt(number.value - 1);
-                if (problemID < 0 || problemID >= card2.length*card3.length + card1.length*card2.length + card1.length) {
-                    problemNum.innerHTML = "Enter a number between 1 - " + (card2.length*card3.length + card1.length*card2.length + card1.length) + ".";
+                if (problemID < 0 || problemID >= card1.length*card2.length*card3.length + card1.length*card2.length + card1.length) {
+                    problemNum.innerHTML = "Enter a number between 1 - " + (card1.length*card2.length*card3.length + card1.length*card2.length + card1.length) + ".";
                     return;
                 }
                 if (problemID < card1.length) {
@@ -357,15 +357,16 @@
                     var s2 = card2[(problemID - card1.length)%card2.length];
                     cards[0] = s1;
                     cards[1] = s2;
-                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + " such that " + s2 + ".";
+                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1+ "such that " + s2 + ".";
                 }
                 else {
-                    var s2 = card2[Math.floor((problemID - card1.length*card2.length-card1.length)/card3.length)];
+                    var s1 = card1[Math.floor((problemID - card1.length*card2.length-card1.length)/(card2.length*card3.length))];
+                    var s2 = card2[Math.floor((problemID - card1.length*card2.length-card1.length)/card3.length)%card2.length];
                     var s3 = card3[(problemID - card1.length*card2.length-card1.length)%card3.length];
+                    cards[0] = s1;
                     cards[1] = s2;
                     cards[2] = s3;
-
-                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B such that " + s2 + " and such that " + s3;
+                    prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + " such that " + s2 + " and such that " + s3;
                 }
                 sub.disabled = false;
                 sub.style.filter = "brightness(100%)";
@@ -497,7 +498,7 @@
             function roll3() {
                 response.innerHTML = "";
                 var restrictions = document.querySelectorAll(".toggle:not(:checked)");
-                var new_cards = [card2, card3];
+                var new_cards = [card1, card2, card3];
                 for (var i = 0; i < new_cards.length; i++) {
                     for (var j = 0; j < restrictions.length; j++) {
                         new_cards[i] = new_cards[i].filter(function(item) {
@@ -511,13 +512,14 @@
                         return;
                     }
                 }
-                var s2 = new_cards[0][Math.floor(Math.random()*new_cards[0].length)];
-                var s3 = new_cards[1][Math.floor(Math.random()*new_cards[1].length)];
+                var s1 = new_cards[0][Math.floor(Math.random()*new_cards[0].length)];
+                var s2 = new_cards[1][Math.floor(Math.random()*new_cards[1].length)];
+                var s3 = new_cards[2][Math.floor(Math.random()*new_cards[2].length)];
+                cards[0] = s1;
                 cards[1] = s2;
+                problemID = card1.length + card1.length*card2.length + card1.indexOf(s1)*card2.length*card3.length + card2.indexOf(s2)*card3.length + card3.indexOf(s3);
                 cards[2] = s3;
-                problemID = card1.length + card1.length*card2.length + card2.indexOf(s2)*card3.length + card3.indexOf(s3);
-                cards[2] = s3;
-                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B such that " + s2 + " and such that " + s3;
+                prompt.innerHTML = "If possible draw a (plane) geometric figure and label two angles A and B " + s1 + " such that " + s2 + " and such that " + s3;
                 sub.disabled = false;
                 sub.style.filter = "brightness(100%)";
                 checkbox.checked = false;
