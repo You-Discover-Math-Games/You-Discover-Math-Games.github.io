@@ -1,0 +1,393 @@
+<html>
+    <head>
+        <title>Race to Hilbert's Hotel!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta charset="utf-8"/>
+        <link rel="icon" type="image/x-icon" href="Favicon.png">
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <style>
+            .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            transform: scale(0.705882353) translateY(-100%);
+            }
+
+            .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+            }
+
+            .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            }
+
+            .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            }
+
+            input:checked + .slider {
+            background-color: #2196F3;
+            }
+
+            input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+            }
+
+            input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+            }
+
+            /* Rounded sliders */
+            .slider.round {
+            border-radius: 34px;
+            }
+
+            .slider.round:before {
+            border-radius: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="setting">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Math</button>
+                                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Game</button>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><br>
+                                    <h5>Toggle Equation Format</h5>
+                                    <label>x + a = b:</label><label class='switch'><input type='checkbox' class='toggle eq' data-index='0' checked><span class='slider round'></span></label><br>
+                                    <label>a + x = b:</label><label class='switch'><input type='checkbox' class='toggle eq' data-index='1' checked><span class='slider round'></span></label><br>
+                                    <label>x - a = b:</label><label class='switch'><input type='checkbox' class='toggle eq' data-index='2' checked><span class='slider round'></span></label><br>
+                                    <label>a - x = b:</label><label class='switch'><input type='checkbox' class='toggle eq' data-index='3' checked><span class='slider round'></span></label><br>
+                                    <hr>
+                                    <h5>a & b Format</h5>
+                                    <label>Range: </label><input placeholder="Min" value="1" type="number" style="width:15%" id="min"><span> to </span><input value="20" placeholder="Max" type="number" style="width:15%" id="max"><br><br>
+                                    <label>Integers</label><label class='switch'><input type='checkbox' class='toggle ab' data-abtype='0' checked><span class='slider round'></span></label><br>
+                                    <!--<label>Decimals</label><label class='switch'><input type='checkbox' class='toggle ab' data-abtype='2'><span class='slider round'></span></label><br>-->
+                                    <hr>
+                                    <h5>Answer Format</h5>
+                                    <label>Whole Numbers</label><label class='switch'><input type='checkbox' class='toggle ans' data-anstype='0' checked><span class='slider round'></span></label><br>
+                                    <label>Integers</label><label class='switch'><input type='checkbox' class='toggle ans' data-anstype='1'><span class='slider round'></span></label><br>
+                                    <!--<label>Decimals</label><label class='switch'><input type='checkbox' class='toggle ans' data-type='2'><span class='slider round'></span></label><br>-->
+                                </div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><br>
+                                    <h5>Toggle Game Design</h5>
+                                    <p>Wrong Answer:</p>
+                                        <input id="none" class="rb" type="radio" value="none" name="wrong" checked><label for="none">&nbsp;&nbsp;None</label><br>
+                                        <input id="penalty" class="rb" type="radio" value="penalty" name="wrong"><label for="penalty">&nbsp;&nbsp;Penalty</label><br>
+                                        <input id="steal" class="rb" type="radio" value="steal" name="wrong"><label for="steal">&nbsp;&nbsp;Steal</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="explain">
+                            <p>You and another family are racing to get to Hilbert's Hotel! Solve these linear equations to get there first before it runs out of rooms.</p>
+                            <h5>How to play:</h5>
+                            <p>Go to Settings to set the math rules<br>(ex: only = a + x = b and a - x = b,  a & b range from 1 - 15, and the answer can only be positive)<br>&emsp;&emsp;- Note if you allow for negative answers, the piece will move based on the magnitude of the answer<br><br>Then click the Game tab to set what game rules you want to allow<br>&emsp;&emsp;- Penalty for Wrong Answer moves you back one space if you get the answer wrong<br>&emsp;&emsp;- Steal for Wrong Answer allows the other person to steal your question if you get it wrong<br><br>Now you can the start the Race to Hilbert's Hotel! The first player presses roll to get a randomly generated linear equation.<br><br>Next you input what you think the answer is and press Check answer!<br><br>Based on the game rules you have set and whether or not you got the answer right, the piece will move or the opponent will get a turn.</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <svg data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalText(-1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" style="cursor: pointer; position: absolute; transform: translate(-100%, 0%); top: 3%; left: 97%;"><path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Zm-1.5 0a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path><path d="M12 1c.266 0 .532.009.797.028.763.055 1.345.617 1.512 1.304l.352 1.45c.019.078.09.171.225.221.247.089.49.19.728.302.13.061.246.044.315.002l1.275-.776c.603-.368 1.411-.353 1.99.147.402.349.78.726 1.128 1.129.501.578.515 1.386.147 1.99l-.776 1.274c-.042.069-.058.185.002.315.112.238.213.481.303.728.048.135.142.205.22.225l1.45.352c.687.167 1.249.749 1.303 1.512.038.531.038 1.063 0 1.594-.054.763-.616 1.345-1.303 1.512l-1.45.352c-.078.019-.171.09-.221.225-.089.248-.19.491-.302.728-.061.13-.044.246-.002.315l.776 1.275c.368.603.353 1.411-.147 1.99-.349.402-.726.78-1.129 1.128-.578.501-1.386.515-1.99.147l-1.274-.776c-.069-.042-.185-.058-.314.002a8.606 8.606 0 0 1-.729.303c-.135.048-.205.142-.225.22l-.352 1.45c-.167.687-.749 1.249-1.512 1.303-.531.038-1.063.038-1.594 0-.763-.054-1.345-.616-1.512-1.303l-.352-1.45c-.019-.078-.09-.171-.225-.221a8.138 8.138 0 0 1-.728-.302c-.13-.061-.246-.044-.315-.002l-1.275.776c-.603.368-1.411.353-1.99-.147-.402-.349-.78-.726-1.128-1.129-.501-.578-.515-1.386-.147-1.99l.776-1.274c.042-.069.058-.185-.002-.314a8.606 8.606 0 0 1-.303-.729c-.048-.135-.142-.205-.22-.225l-1.45-.352c-.687-.167-1.249-.749-1.304-1.512a11.158 11.158 0 0 1 0-1.594c.055-.763.617-1.345 1.304-1.512l1.45-.352c.078-.019.171-.09.221-.225.089-.248.19-.491.302-.728.061-.13.044-.246.002-.315l-.776-1.275c-.368-.603-.353-1.411.147-1.99.349-.402.726-.78 1.129-1.128.578-.501 1.386-.515 1.99-.147l1.274.776c.069.042.185.058.315-.002.238-.112.481-.213.728-.303.135-.048.205-.142.225-.22l.352-1.45c.167-.687.749-1.249 1.512-1.304C11.466 1.01 11.732 1 12 1Zm-.69 1.525c-.055.004-.135.05-.161.161l-.353 1.45a1.832 1.832 0 0 1-1.172 1.277 7.147 7.147 0 0 0-.6.249 1.833 1.833 0 0 1-1.734-.074l-1.274-.776c-.098-.06-.186-.036-.228 0a9.774 9.774 0 0 0-.976.976c-.036.042-.06.131 0 .228l.776 1.274c.314.529.342 1.18.074 1.734a7.147 7.147 0 0 0-.249.6 1.831 1.831 0 0 1-1.278 1.173l-1.45.351c-.11.027-.156.107-.16.162a9.63 9.63 0 0 0 0 1.38c.004.055.05.135.161.161l1.45.353a1.832 1.832 0 0 1 1.277 1.172c.074.204.157.404.249.6.268.553.24 1.204-.074 1.733l-.776 1.275c-.06.098-.036.186 0 .228.301.348.628.675.976.976.042.036.131.06.228 0l1.274-.776a1.83 1.83 0 0 1 1.734-.075c.196.093.396.176.6.25a1.831 1.831 0 0 1 1.173 1.278l.351 1.45c.027.11.107.156.162.16a9.63 9.63 0 0 0 1.38 0c.055-.004.135-.05.161-.161l.353-1.45a1.834 1.834 0 0 1 1.172-1.278 6.82 6.82 0 0 0 .6-.248 1.831 1.831 0 0 1 1.733.074l1.275.776c.098.06.186.036.228 0 .348-.301.675-.628.976-.976.036-.042.06-.131 0-.228l-.776-1.275a1.834 1.834 0 0 1-.075-1.733c.093-.196.176-.396.25-.6a1.831 1.831 0 0 1 1.278-1.173l1.45-.351c.11-.027.156-.107.16-.162a9.63 9.63 0 0 0 0-1.38c-.004-.055-.05-.135-.161-.161l-1.45-.353c-.626-.152-1.08-.625-1.278-1.172a6.576 6.576 0 0 0-.248-.6 1.833 1.833 0 0 1 .074-1.734l.776-1.274c.06-.098.036-.186 0-.228a9.774 9.774 0 0 0-.976-.976c-.042-.036-.131-.06-.228 0l-1.275.776a1.831 1.831 0 0 1-1.733.074 6.88 6.88 0 0 0-.6-.249 1.835 1.835 0 0 1-1.173-1.278l-.351-1.45c-.027-.11-.107-.156-.162-.16a9.63 9.63 0 0 0-1.38 0Z"></path></svg>
+        <svg data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalText(-2)" fill="#000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 400 400" xml:space="preserve" style="cursor: pointer; position: absolute; transform: translate(-100%, 0%); top: 3%; left: calc(96% - 24px);"><g><g><path d="M199.996,0C89.719,0,0,89.72,0,200c0,110.279,89.719,200,199.996,200C310.281,400,400,310.279,400,200 C400,89.72,310.281,0,199.996,0z M199.996,373.77C104.187,373.77,26.23,295.816,26.23,200 c0-95.817,77.957-173.769,173.766-173.769c95.816,0,173.772,77.953,173.772,173.769 C373.769,295.816,295.812,373.77,199.996,373.77z"/><path d="M199.996,91.382c-35.176,0-63.789,28.616-63.789,63.793c0,7.243,5.871,13.115,13.113,13.115 c7.246,0,13.117-5.873,13.117-13.115c0-20.71,16.848-37.562,37.559-37.562c20.719,0,37.566,16.852,37.566,37.562 c0,20.714-16.849,37.566-37.566,37.566c-7.242,0-13.113,5.873-13.113,13.114v45.684c0,7.243,5.871,13.115,13.113,13.115 s13.117-5.872,13.117-13.115v-33.938c28.905-6.064,50.68-31.746,50.68-62.427C263.793,119.998,235.176,91.382,199.996,91.382z"/><path d="M200.004,273.738c-9.086,0-16.465,7.371-16.465,16.462s7.379,16.465,16.465,16.465c9.094,0,16.457-7.374,16.457-16.465 S209.098,273.738,200.004,273.738z"/></g></g></svg>
+        <div style="transform: translate(0%,0%); position:absolute; z-index:-1; top:0%; left:0%; width:50%;">
+            <img src="template.png" id="life" width="100%">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="736" height="518" style="transform: translate(0%,0%); position:absolute; z-index:0; top:0%; left:0%;">
+                <path id="path" fill="none" opacity="1.000000" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.000000"
+	            d="
+M 93.5,720.5 C 93.333336,719.833313 93.002487,719.161377 93.023895,718.500793 C 93.628799,699.832031 91.127876,681.013245 95.144127,662.531311 C 96.205467,657.647339 95.778488,652.820007 96.350082,647.9823 C 97.248032,640.382324 97.7565,632.635498 97.352814,625.007812 C 96.831573,615.158752 97.197601,605.33252 97.061272,595.499146 C 97.020126,592.531494 97.984138,591.07074 102.011436,591.283813 C 112.162437,591.820801 122.416344,592.240417 132.501022,590.004578 C 140.962952,588.12854 149.478683,588.605469 158.000122,589.498901 C 165.999542,590.337646 173.990097,591.2901 182.005341,591.933411 C 184.828888,592.159973 186.171097,593.141907 186.003464,596.000183 C 185.405548,606.196594 186.691803,616.33252 187.027023,626.499084 C 187.290894,634.500854 186.242233,642.466797 187.839584,650.531799 C 189.561005,659.223206 191.848984,667.943054 191.046371,677.004089 C 190.826843,679.482422 189.791122,682.102783 191.856461,685.0 C 193.486252,685.0 195.845184,685.684265 197.432007,684.867859 C 201.672302,682.686157 206.075089,683.004395 210.499985,683.010681 C 240.836319,683.053955 271.178345,682.617676 301.499695,684.006958 C 304.002075,684.121521 306.533173,684.132568 308.99353,684.539124 C 315.346191,685.588867 321.622711,687.327148 328.009308,687.895447 C 340.632965,689.018738 353.316589,689.324829 365.999847,688.99408 C 370.467743,688.877563 373.765564,686.402893 373.902924,681.996948 C 374.235962,671.314575 373.946625,660.584106 372.374939,650.018616 C 371.228607,642.312744 367.353302,635.046936 368.035736,627.003052 C 368.898163,616.837646 368.326294,606.666504 368.480438,596.499695 C 368.562317,591.097351 367.402161,589.853821 362.001251,590.03656 C 350.139893,590.437927 338.355377,588.940308 326.502045,588.811768 C 315.856781,588.696289 305.549408,588.96759 295.45932,592.895508 C 290.423737,594.855896 285.057037,595.964783 279.462219,594.114197 C 277.589233,593.494629 276.311523,592.951294 276.009247,590.998596 C 275.313416,586.503052 274.298065,582.018738 274.068237,577.496521 C 273.340546,563.17749 272.632446,548.852783 272.93454,534.498596 C 272.989014,531.90979 272.9599,529.082275 274.136017,527.079895 C 277.427216,521.476868 276.986053,515.502258 276.999481,509.5 C 277.002838,508.0 276.74765,506.448914 277.039429,505.007996 C 279.667755,492.027466 281.345398,490.891266 291.944366,494.656647 C 296.792786,496.379028 301.473602,497.102051 306.500488,497.036652 C 316.165497,496.910828 325.833344,497.0 335.5,497.0 C 336.666656,497.0 337.902924,496.744019 338.989288,497.039398 C 350.461212,500.158447 362.343536,500.600952 374.005798,502.463715 C 376.843048,502.916931 378.230743,501.351349 377.991821,498.500702 C 377.349121,490.832031 377.54422,482.958405 375.786255,475.55072 C 373.385193,465.433197 372.879822,455.209717 372.088623,444.993134 C 371.342499,435.358459 371.163422,425.667969 371.088043,415.999329 C 371.059998,412.40155 369.55542,412.049103 366.506622,411.880402 C 362.230255,411.643799 358.227386,413.06076 353.999908,413.054291 C 300.166687,412.971863 246.333328,413.0 192.5,413.0 C 184.641418,413.0 184.504059,413.126221 184.005569,421.000366 C 183.963531,421.664337 184.028564,422.334747 183.99559,422.999786 C 183.647064,430.029755 183.469604,437.087524 181.976974,443.995026 C 180.085266,452.749298 179.779968,461.58844 179.965012,470.500732 C 180.131058,478.497284 179.931671,486.500732 180.01857,494.499786 C 180.111786,503.08136 176.066528,504.568726 170.023758,503.379272 C 153.625122,500.151489 137.106506,499.720612 120.499664,499.978607 C 112.501595,500.102844 104.499886,500.025269 96.500046,499.990204 C 91.964203,499.970306 90.891693,499.029297 91.047249,494.501617 C 91.232277,489.116455 90.556297,483.812836 89.95578,478.505005 C 89.537613,474.808929 87.929985,471.366852 87.943237,467.499817 C 88.046089,437.500153 88.016106,407.499969 87.983269,377.500031 C 87.978127,372.800507 88.339577,367.977936 89.236168,363.547791 C 91.952568,350.125854 94.557823,336.771332 93.986298,323.00058 C 93.83786,319.42392 95.423859,317.876404 99.000648,317.976807 C 107.498627,318.215454 116.021408,318.788879 124.494865,318.390747 C 136.517029,317.825897 148.204666,320.07312 159.997726,321.518524 C 167.343277,322.418823 174.651871,323.633392 182.005646,324.449097 C 186.293091,324.924652 187.726151,323.413391 187.992813,318.999573 C 188.042969,318.16925 187.80629,317.277252 188.028961,316.508392 C 191.630295,304.072937 192.192947,291.366364 192.092697,278.499268 C 191.982361,264.337311 191.380707,250.154984 192.508408,236.000671 C 192.657761,234.1259 192.351013,232.827301 189.998764,232.981094 C 185.671677,233.263931 181.342682,232.766663 176.991348,233.444489 C 168.054764,234.836563 159.140686,236.253799 149.998505,236.077667 C 133.164841,235.753311 116.31562,236.313354 99.498474,235.019867 C 95.020126,234.675415 93.902534,233.711258 94.022026,229.000565 C 94.512558,209.661636 92.60247,190.254913 95.928688,170.987686 C 96.89312,165.401199 96.856766,159.649506 97.533234,154.003983 C 98.573517,145.322174 100.125633,136.693726 100.930946,127.993607 C 102.115669,115.194809 101.48381,102.33316 101.456757,89.500092 C 101.433922,78.667336 101.94706,67.826347 101.047714,56.996037 C 100.795738,53.96151 100.395439,50.455399 105.000183,50.001877 C 115.112381,49.005928 124.467476,44.662621 134.995544,44.556866 C 142.079987,44.485699 149.056274,44.761795 155.986801,45.608036 C 164.992172,46.707623 173.927444,48.504322 183.002792,48.94199 C 189.835129,49.271484 191.152237,50.193638 190.973312,56.999298 C 190.246033,84.664642 192.907181,112.412766 188.987305,139.998199 C 188.417923,144.005219 189.999344,145.141266 194.001144,145.090393 C 210.831757,144.87648 227.666702,144.98468 244.499954,145.021942 C 246.333633,145.026001 248.220734,145.109634 249.990967,145.537399 C 259.37735,147.805603 268.893768,148.275391 278.501221,148.053314 C 281.117188,147.992844 282.055664,147.125534 282.039429,144.499756 C 281.954834,130.833603 282.0,117.166664 282.0,103.5 C 282.0,102.833336 282.183441,102.101532 281.973206,101.509506 C 276.549377,86.234108 277.428284,70.302322 276.956726,54.501293 C 276.862732,51.35181 278.429443,50.871395 281.000946,50.976723 C 286.597321,51.205948 292.049713,50.615681 297.551636,49.200859 C 300.341248,48.483513 303.50415,47.998104 306.499023,48.053062 C 323.166077,48.35891 339.88327,46.891411 356.486816,49.099159 C 360.160919,49.5877 365.015015,48.939274 366.434265,54.018364 C 367.29126,57.085274 367.804169,60.31937 367.950287,63.502281 C 368.8526,83.159012 368.40329,102.83271 368.533844,122.499779 C 368.542633,123.822136 368.68869,125.168983 368.885651,126.516708 C 371.097809,141.656967 371.354004,156.875397 368.906189,171.984802 C 367.344788,181.622726 365.900452,191.193253 365.925568,201.000183 C 365.947723,209.665955 365.198883,218.331223 365.063324,227.000992 C 365.005615,230.691025 363.180817,232.622833 359.991882,233.469376 C 351.78833,235.647034 343.470551,237.386368 334.997162,237.958115 C 318.027893,239.103134 301.622284,234.680649 285.021545,232.34671 C 281.243805,231.815582 278.205139,232.117126 277.130768,235.541031 C 274.713867,243.243546 271.668915,251.099915 271.272034,259.013641 C 270.396545,276.469727 270.870728,294.001404 271.061707,311.499329 C 271.141449,318.806213 273.981415,322.105438 280.50415,322.411438 C 288.85199,322.80307 297.270203,322.473663 305.4729,320.862061 C 309.64386,320.042603 313.733856,318.847717 317.99881,319.027893 C 333.66568,319.689758 349.349915,319.417511 365.015289,320.830627 C 375.033752,321.734283 385.024017,322.961029 394.97583,324.194824 C 410.287445,326.09317 425.531525,328.217529 441.000031,328.001953 C 445.52829,327.938812 450.024658,328.709686 454.481201,329.17865 C 465.039673,330.289703 475.446655,332.968018 486.012085,333.856201 C 503.300751,335.30957 520.670471,335.114716 537.996033,333.941406 C 540.697876,333.758453 543.861023,333.009613 543.927063,329.498627 C 544.075623,321.605774 546.942322,314.025787 546.103943,305.989166 C 545.553528,300.713226 546.052063,295.332489 545.963257,290.00061 C 545.941162,288.675873 545.948486,287.375305 545.596313,285.975769 C 542.746765,274.653595 542.081116,262.956451 539.942017,251.510834 C 538.761902,245.196228 539.220032,238.815964 538.903564,232.0 C 529.839722,232.0 521.169861,232.0 512.5,232.0 C 505.5,232.0 498.387268,231.213898 491.52832,232.197556 C 482.811279,233.447678 474.165192,232.679382 465.497559,232.907333 C 462.664368,232.981827 459.581085,232.13385 459.029083,228.495575 C 458.247833,223.346298 457.208282,218.178085 457.079254,212.998032 C 456.518982,190.50325 457.473663,168.00267 456.160522,145.490631 C 455.307922,130.873703 456.849976,116.103256 455.761963,101.517754 C 454.664978,86.81237 455.552094,72.161766 455.003906,57.499855 C 454.888458,54.412189 456.412018,52.995914 459.499756,52.971176 C 461.667633,52.953808 463.921295,52.994125 465.983948,52.440193 C 472.885529,50.586754 479.957336,49.289391 487.00296,49.137863 C 505.827606,48.733006 524.666687,49.016228 543.5,48.98642 C 547.302673,48.9804 549.361389,51.085331 549.932739,54.511219 C 550.424011,57.457088 550.522888,60.50333 550.470215,63.499477 C 550.022278,89.000389 549.519775,114.50042 548.977417,139.999512 C 548.901306,143.575882 550.424927,145.083405 554.000488,145.03244 C 561.498962,144.925537 569.0,145.0 576.5,145.0 C 597.833313,145.0 619.166687,144.987 640.5,145.014236 C 643.647827,145.01825 646.067566,144.734283 646.060242,140.499893 C 646.033691,125.162331 645.921143,109.835197 646.852112,94.491028 C 647.587524,82.36898 646.955505,70.166428 647.019775,58.000103 C 647.0495,52.375233 648.218628,51.023968 653.0,51.016808 C 677.333313,50.980373 701.666748,50.978088 726.0,51.017876 C 731.070007,51.026165 732.041077,52.032288 731.986267,56.999847 C 731.839233,70.337273 731.629272,83.669266 731.232666,97.00692 C 730.608459,117.994064 730.923767,138.992554 732.693542,160.025787 C 734.183472,177.733749 732.747742,195.672302 733.145752,213.49675 C 733.273682,219.226593 730.62262,224.34375 730.871582,230.005646 C 730.9328,231.395889 729.51355,232.468246 727.551819,233.149231 C 718.429504,236.315903 708.891174,236.978912 699.486755,237.858627 C 680.178406,239.664795 661.319214,233.232437 641.996765,233.907196 C 640.007202,233.976654 637.972656,232.756088 635.707153,232.056351 C 635.281067,233.476776 634.201538,234.58168 633.873718,236.478165 C 631.718445,248.944489 632.644653,261.490173 632.53717,274.000305 C 632.415283,288.192657 633.704041,302.240631 637.463318,316.01001 C 639.241638,322.523865 639.598267,323.276001 645.997314,322.947479 C 664.156433,322.015228 682.290955,320.229492 700.497375,321.057953 C 708.549255,321.424377 716.630432,321.852386 724.513123,323.950684 C 727.324158,324.698914 729.173584,325.983978 729.50238,328.999756 C 729.993164,333.500732 730.889954,337.996399 730.931458,342.500641 C 731.097595,360.499084 730.980774,378.500061 731.035339,396.499878 C 731.039856,397.988983 731.259644,399.546051 731.358948,401.009583 C 732.038574,411.02655 734.539246,420.825104 734.123779,431.005066 C 733.607605,443.650635 733.840027,456.336121 734.061035,468.998932 C 734.189819,476.37439 733.584595,483.682617 732.969482,490.997437 C 732.240417,499.667267 728.767822,502.774048 719.999939,502.997803 C 719.333679,503.014801 718.646179,502.892792 718.003052,503.01593 C 706.719849,505.17572 695.248535,504.519775 684.020142,503.717834 C 670.6875,502.765564 657.408447,500.84436 644.001343,501.078217 C 640.122803,501.145844 638.481506,499.739441 637.957397,496.005981 C 636.088013,482.690094 634.960571,469.44635 639.993713,456.497559 C 640.375183,455.516266 640.891785,454.516235 640.965271,453.497498 C 641.710083,443.169647 643.11676,432.890503 643.02301,422.499786 C 642.908264,409.783447 640.344482,410.472015 630.992798,410.782043 C 609.329346,411.500214 587.660645,411.880402 565.987854,412.664764 C 531.366516,413.917725 496.666565,413.034943 462.000183,412.937531 C 459.03833,412.92923 457.173584,413.634857 455.959869,416.48291 C 451.999359,425.776581 450.248535,435.786774 449.355896,445.532593 C 448.182526,458.343018 447.70108,471.500854 452.884186,484.047852 C 455.166748,489.573425 456.248596,495.592834 458.982422,501.008881 C 460.15802,503.337921 461.634949,504.625366 464.471771,505.152008 C 468.252686,505.853943 471.841858,505.032654 475.498322,504.936035 C 484.33316,504.702576 493.138,505.161682 502.021606,504.199432 C 515.271667,502.76416 528.661438,502.514343 542.001892,502.054993 C 550.525208,501.761536 551.870361,503.295715 548.863892,511.449829 C 545.30011,521.115662 544.730469,530.943909 544.983521,541.000427 C 545.084106,544.997864 544.716858,549.024658 545.062378,552.994568 C 545.673279,560.013916 545.806213,567.252319 547.762207,573.923096 C 549.4375,579.636475 549.614807,585.00531 548.412598,590.480835 C 547.030579,596.774902 545.723328,597.432251 540.003357,596.95929 C 536.651611,596.68219 533.216431,596.390381 530.019958,595.433289 C 515.23999,591.007629 500.175476,591.388489 484.996002,591.874756 C 475.685974,592.172913 466.277496,592.89679 456.683319,591.021301 C 452.002136,603.002625 451.522888,615.916382 450.204285,628.521362 C 448.47345,645.067383 450.632629,661.384277 456.890656,677.043701 C 458.061737,679.974182 459.333435,681.319946 462.469116,682.120911 C 473.358704,684.902344 484.529633,684.162781 495.513245,684.753601 C 519.142334,686.024597 542.817993,684.763489 566.52771,686.652344 C 587.395264,688.314697 608.5,687.018311 629.5,686.987671 C 635.005188,686.979614 635.998535,685.922241 635.998962,680.5 C 636.00116,654.0 635.992249,627.5 636.010071,601.0 C 636.012207,597.806213 636.129028,594.677002 636.887512,591.473389 C 638.216675,585.859619 638.963684,585.268433 645.009949,586.449036 C 648.957092,587.219666 653.002747,587.946594 656.999512,587.921875 C 673.332764,587.820984 689.670105,588.496399 706.003174,587.555542 C 711.983337,587.21106 718.0,587.509644 724.0,587.495422 C 726.506897,587.489502 728.962769,587.605469 728.985413,591.000122 C 729.033264,598.166443 729.85321,605.460571 728.807617,612.471313 C 727.074219,624.092896 728.280151,635.287292 730.999695,646.500061 C 733.667542,657.499817 736.333374,668.5 739.0,679.5 
+"/>
+                <path id="bridge" fill="none" d='M 552.5,133.5 C 553.586,133.62 554.253,134.287 554.5,135.5 C 554.189,140.646 551.689,144.313 547.0,146.5 C 546.333,151.833 546.333,157.167 547.0,162.5 C 555.333,170.833 563.667,179.167 572.0,187.5 C 576.319,195.827 582.152,202.993 589.5,209.0 C 597.187,214.031 604.854,219.031 612.5,224.0 C 620.505,228.17 628.839,231.503 637.5,234.0 C 638.4310695338393,235.49351860167877 638.6815208449386,237.0671539798517 638.2507060309798,238.7215540368373'/>
+                <img id="ra" src="RC.png" width="4%" style="transform: translate(-50%,-50%) rotate(-90deg); position: absolute; z-index: 2; top: 17%; left: 17%;">
+                <img id="ba" src="BC.png" width="4%" style="transform: translate(-50%,-50%) rotate(-90deg); position: absolute; z-index: 1; top: 17%; left: 17%;">
+            </svg>
+        </div>
+        <div>
+            <center>
+            <p style="position: absolute; z-index:1; transform: translate(-50%,-50%); top:25%; left:75%; font-size:25px;" id="turn">Red Turn</p>
+            <p style="position: absolute; z-index:1; transform: translate(-50%,-50%); top:30%; left:75%; font-size:30px;" id="equation">Roll!</p>
+            <input placeholder="Enter answer" type="number" style="position: absolute; z-index:1; transform: translate(-50%,-50%); top:45.1%; left:75%;" id="answer">
+            <button id="roll" class="btn btn-success" style="position: absolute; z-index:1; transform: translate(-50%,-50%); top:40%; left:75%;" onclick="roll()">Roll for an equation!</button>
+            <button id="move" class="btn btn-primary" style="position: absolute; z-index:1; transform: translate(-50%,-50%); top:50%; left:75%;" onclick="check()">Check answer!</button>
+            <p style="position: absolute; z-index:1; transform: translate(-50%,-50%); top:58%; left:75%; font-size:20px;" id="status"></p>
+            </center>
+        </div>
+        <script>
+            const path_length = {"path": 126, "bridge": 4.001};
+            const paths = ["path", "bridge"];
+            var pathid = 0;
+            var sq = 0;
+            var move_value = 0;
+
+            const ra = document.getElementById("ra");
+            const ba = document.getElementById("ba");
+            var start = document.getElementById(paths[0]).getPointAtLength(0);
+            
+            ra.style.top = start.y/723 * 100 + "%";
+            ra.style.left = (start.x - 20)/865 * 100 + "%";
+            ba.style.top = start.y/723 * 100 + "%";
+            ba.style.left = (start.x + 20)/865 * 100 + "%";
+            
+            var playerIndex = 0;
+            var players = ["ra", "ba"];
+            var playernames = ["Red", "Blue"];
+            const turn = document.getElementById("turn");
+
+            const life = document.getElementById("life");
+
+            const equation = document.getElementById("equation");
+            const status = document.getElementById("status");
+            const inp = document.getElementById("answer")
+            const min = document.getElementById("min");
+            const max = document.getElementById("max");
+
+            const eq_format = [["x + ", " = "], ["", " + x = "], ["x - ", " = "], ["", " - x = "]];
+            const answers = [function (a,b) {return b-a}, function (a,b) {return b-a}, function (a,b) {return a+b}, function (a,b) {return a-b}]
+            const answer_format = [function (a) {return a > 0 && Number.isInteger(a)}, function (a) {return Number.isInteger(a)}, function (a) {return !Number.isInteger(a)}]
+
+            var is = [0,0]; //[22/126*document.getElementById(paths[0]).getTotalLength(),0];//
+            var cursqs = [0,0]; //[22,0]; //
+
+            var answer, a, b, index;
+            var bridge = false;
+            function modalText(index) {
+                if (index === -1) {
+                    document.getElementById("explain").style.display = "none";
+                    document.getElementById("exampleModalLabel").innerHTML = "Settings";
+                    document.getElementById("setting").style.display = "block";
+                } else if (index === -2) {
+                    document.getElementById("setting").style.display = "none";
+                    document.getElementById("exampleModalLabel").innerHTML = "\"Race to Hilbert's Hotel!\"";
+                    document.getElementById("explain").style.display = "block";
+                }
+            }
+            function reset() {
+                $("#roll").attr("disabled",false);
+                $("#move").attr("disabled",true);
+                inp.value = "";
+                if (bridge) {
+                    cursqs[playerIndex] = 90;
+                    is[playerIndex] = 90.5/path_length[paths[0]]*document.getElementById(paths[0]).getTotalLength() -1;
+                    bridge = false
+                }
+            }
+            function pathimg(length, pid, start,cross, playID) {
+                var path = document.getElementById(paths[pid]);
+                var point = path.getPointAtLength(is[playID]);
+                var player = document.getElementById(players[playID]);
+                player.style.top = point.y/723 * 100 + "%";
+                player.style.left = point.x/865 * 100 + "%";
+                var point_ahead = path.getPointAtLength(is[playID]+5);
+                var angle = Math.atan((point_ahead.y - point.y)/(point_ahead.x - point.x));
+                if ((point_ahead.y <= point.y && point_ahead.x <= point.x) || (point_ahead.y >= point.y && point_ahead.x <= point.x)) {
+                    angle += Math.PI;
+                }
+                player.style.transform = "translate(-50%,-50%) rotate(" + angle + "rad)";
+                is[playID] = is[playID] + Math.abs(length)/length*5;
+                if (((length >= 0 && is[playID] >= (cursqs[playID]/path_length[paths[pid]]*path.getTotalLength()-1)) || (length < 0 && is[playID] <= (cursqs[playID]/path_length[paths[pid]]*path.getTotalLength()-1))) || (is[playID] >= path.getTotalLength()-10)) {
+                    if (!cross) {
+                        clearInterval(interval);
+                        
+                        if (cursqs[playID] === 23 || cursqs[playID] == 86) {
+                            moveimg(-2, 0, playID);
+                            return;
+                        }
+                        else if (cursqs[playID] === 41 || cursqs[playID] == 64) {
+                            moveimg(2, 0, playID);
+                            return;
+                        }
+                        else if (cursqs[playID] === 48 || cursqs[playID] == 107) {
+                            status.innerHTML = "Go Again!";
+                            equation.innerHTML = "Roll!";
+                            turn.innerHTML = playernames[playerIndex] + " Turn";
+                            document.getElementById(players[playerIndex]).style.zIndex = 2;
+                            player.style.zIndex = 1;
+                            reset();
+                            return;
+                        }
+                        else if (cursqs[playID] === 78) {
+                            is[playID] = 0;
+                            cursqs[playID] = 0;
+                            moveimg(4, 1, playID, 5);
+                            bridge = true;
+                            return;
+                        }
+                        equation.innerHTML = "Roll!";
+                        status.innerHTML = "";
+                        reset();
+                    }
+                    else {
+                        clearInterval(interval);
+                        $("#roll").attr("disabled",true);
+                        player.style.top = point.y/723 * 100 + 2 + "%";
+                        equation.innerHTML = "Done!"
+                        status.innerHTML = ""
+                        var inter = cursqs[playID];
+                        pathid += 1;
+                        cursqs[playID] = 0;
+                        is[playID] = 0;
+                        life.src = "finish.png"
+                        reset();
+                        $("#roll").attr("disabled",true);
+                        turn.innerHTML = playernames[playID] + " Wins!";
+                        alert(playernames[playID] + " Wins!");
+                        return;
+                    }
+                    playerIndex = (playerIndex + 1) % playernames.length;
+                    turn.innerHTML = playernames[playerIndex] + " Turn";
+                    document.getElementById(players[playerIndex]).style.zIndex = 2;
+                    player.style.zIndex = 1;
+                }
+            }
+            function moveimg(squares, pid, playerID,time=1) {
+                $("#move").attr("disabled",true);
+                equation.innerHTML = "Moving...";
+                if (squares + cursqs[playerID] < 0) {
+                    equation.innerHTML = "Roll!"
+                    reset();
+                    playerIndex = (playerIndex + 1) % playernames.length;
+                    turn.innerHTML = playernames[playerIndex] + " Turn";
+                    document.getElementById(players[playerIndex]).style.zIndex = 2;
+                    document.getElementById(players[playerID]).style.zIndex = 1;
+                    return
+                }
+                sq = squares;
+                if (path_length[paths[pid]] > (squares + cursqs[playerID])) {
+                    cursqs[playerID] = squares + cursqs[playerID];
+                    interval = setInterval(pathimg, time, squares, pid, is[playerID], false, playerID);
+                }
+                else {
+                    cursqs[playerID] = squares + cursqs[playerID];
+                    interval = setInterval(pathimg, time, squares, pid, is[playerID], true, playerID);
+                }
+            }
+            function roll() {
+                var eq_restrictions = document.querySelectorAll(".eq.toggle:checked");
+                var ab_restrictions = document.querySelectorAll(".ab.toggle:checked");
+                var ans_restrictions = document.querySelectorAll(".ans.toggle:checked");
+                if (eq_restrictions.length === 0 || ab_restrictions.length === 0 || ans_restrictions.length === 0) {
+                    status.innerHTML = "The settings are invalid."
+                    return;
+                }
+                var restricteq = []
+                for (var j = 0; j < eq_restrictions.length; j++) {
+                    restricteq.push(parseInt(eq_restrictions[j].dataset.index))
+                }
+                var restrictab = []
+                for (var j = 0; j < ab_restrictions.length; j++) {
+                    restricteq.push(parseInt(ab_restrictions[j].dataset.abtype))
+                }
+                var restrictans = []
+                for (var j = 0; j < ans_restrictions.length; j++) {
+                    restrictans.push(parseInt(ans_restrictions[j].dataset.anstype))
+                }
+
+                index = restricteq[Math.floor(Math.random()*restricteq.length)]
+                
+                answer = null;
+                var anstype = false;
+                for (var i = 0; i <  restrictans.length; i++) {
+                    if (answer_format[restrictans[i]](answer)) {
+                        anstype = true;
+                    }
+                }
+                
+                while (!anstype) {
+                    a = Math.floor(Math.random()*(parseInt(max.value) - parseInt(min.value) + 1)) + parseInt(min.value);
+                    b = Math.floor(Math.random()*(parseInt(max.value) - parseInt(min.value) + 1)) + parseInt(min.value);
+                    
+                    answer = answers[index](a,b)
+
+                    for (var i = 0; i <  restrictans.length; i++) {
+                        if (answer_format[restrictans[i]](answer)) {
+                            anstype = true;
+                        }
+                    }
+                }
+                $("#roll").attr("disabled",true);
+                move_value = Math.floor(Math.random()*6)+1;
+                $("#move").attr("disabled",false);
+                equation.innerHTML = eq_format[index][0] + a + eq_format[index][1] + b;
+            }
+            function check() {
+                var ans = parseInt(inp.value);
+                var radio;
+                for (var i = 0; i < document.querySelectorAll(".rb").length; i++) {
+                    if (document.querySelectorAll(".rb")[i].checked) {
+                        radio = document.querySelectorAll(".rb")[i].value;
+                    }
+                }
+                if (ans === answer) {
+                    status.innerHTML = "Correct!"
+                    moveimg(Math.abs(ans), 0, playerIndex);
+                } else if (radio === "penalty") {
+                    status.innerHTML = "Sorry, that's incorrect. The answer was " + answer;
+                    moveimg(-1, 0, playerIndex);
+                } else {
+                    status.innerHTML = "Sorry, that's incorrect. Try again"
+                    if (radio === "steal") {
+                        playerIndex = (playerIndex + 1) % playernames.length;
+                        turn.innerHTML = playernames[playerIndex] + " Turn";
+                        document.getElementById(players[playerIndex]).style.zIndex = 2;
+                        document.getElementById(players[1-playerIndex]).style.zIndex = 1;
+                        status.innerHTML = "Sorry, that's incorrect. "  + playernames[playerIndex] + " gets to steal now!";
+                        equation.innerHTML = eq_format[index][0] + a + eq_format[index][1] + b;
+                        $("#roll").attr("disabled",true);
+                        $("#move").attr("disabled",false);
+                        document.getElementById("move").onclick = function() {
+                            if (parseInt(inp.value) === answer) {
+                                moveimg(Math.abs(answer), 0, playerIndex)
+                                playerIndex = (playerIndex + 1) % playernames.length;
+                                status.innerHTML = "Correct! " + playernames[1 - playerIndex] +  " can now complete their turn!"
+                            }
+                            else {
+                                equation.innerHTML = "Roll!";
+                                status.innerHTML = "Sorry, that's incorrect. The answer was " + answer + ". " + playernames[playerIndex] +  " can now complete their turn!"
+                                reset();
+                            }
+                            document.getElementById("move").onclick = check;
+                        };
+                    }
+                }
+            }
+            reset();
+        </script> 
+    </body>
+</html>
